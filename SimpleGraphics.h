@@ -12,6 +12,7 @@ public:
     void accept(GraphicsVisitor &av);
     Shape * shape();
     void paint(QPainter *p);
+    QGraphicsItem* createPainter(QWidget *w);
 private:
     Shape * s;
 };

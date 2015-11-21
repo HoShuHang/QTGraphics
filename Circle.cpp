@@ -19,3 +19,10 @@ void Circle::paint(QPainter *p)
     QPoint center(cx, cy);
     p->drawEllipse(center, r, r);
 }
+
+QGraphicsItem* Circle::createPainter(QWidget *widget, bool isComposite)
+{
+    CirclePainter* item = new CirclePainter(cx, cy, r, widget);
+    item->SetComposite(isComposite);
+    return item;
+}

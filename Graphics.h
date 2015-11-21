@@ -14,6 +14,7 @@ public:
     virtual void add(Graphics *g);
     virtual void accept(GraphicsVisitor & av);
     virtual void paint(QPainter *p)=0;
+    virtual QGraphicsItem* createPainter(QWidget *w)=0;
 protected:
     Graphics();
 };

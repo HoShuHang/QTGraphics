@@ -28,3 +28,10 @@ void Rectangle::paint(QPainter *p)
     std::cout << "l = " << l << std::endl;
     p->drawRect(x, y, w, l);
 }
+
+QGraphicsItem* Rectangle::createPainter(QWidget *widget, bool isComposite)
+{
+    RectanglePainter* i = new RectanglePainter(x, y, l, l, widget);
+    i->SetComposite(isComposite);
+    return i;
+}

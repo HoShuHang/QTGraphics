@@ -57,3 +57,8 @@ void CompositeGraphics::paint(QPainter *p)
     p->setPen(pen);
     getBoundingBox().paint(p);
 }
+
+QGraphicsItem* CompositeGraphics::createPainter(QWidget *w)
+{
+    return getBoundingBox().createPainter(w, true);
+}

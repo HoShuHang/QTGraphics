@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QPainter>
+#include "RectanglePainter.h"
+#include "CirclePainter.h"
 
 class Rectangle;
 
@@ -13,6 +15,7 @@ public:
     virtual Rectangle getBoundingBox()=0;
     virtual std::string describe() {return std::string("");};
     virtual void paint(QPainter *p)=0;
+    virtual QGraphicsItem* createPainter(QWidget *widget, bool isComposite)=0;
 };
 
 

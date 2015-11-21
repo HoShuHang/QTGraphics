@@ -12,3 +12,7 @@ void SimpleGraphics::paint(QPainter *p)
     p->setPen(pen);
     shape()->paint(p);
 }
+QGraphicsItem* SimpleGraphics::createPainter(QWidget *w)
+{
+    return shape()->createPainter(w, false);
+}
