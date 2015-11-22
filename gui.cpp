@@ -1,8 +1,6 @@
 #include "gui.moc"
 #include <QDebug>
-#include "Circle.h"
-#include "Rectangle.h"
-#include "Square.h"
+#include <fstream>
 gui::gui()
 {
 //    ctor
@@ -44,13 +42,15 @@ void gui::CreateView()
 void gui::SetActionConnection()
 {
     connect(aboutDeveloper, SIGNAL(triggered()), this, SLOT(MessageDialog()));
-    connect(loadFile, SIGNAL(triggered()), this, SLOT(FileDialog()));
+    connect(loadFile, SIGNAL(triggered()), this, SLOT(LoadFileDialog()));
+    connect(saveFile, SIGNAL(triggered()), this, SLOT(SaveFileDialog()));
 }
 
 void gui::CreateActions()
 {
     loadFile = new QAction("loadFile", widget);
     saveFile = new QAction("saveFile", widget);
+    saveFile->setEnabled(false);
     aboutDeveloper = new QAction("aboutDeveloper", widget);
 }
 
@@ -79,26 +79,48 @@ void gui::MessageDialog()
     msgbox.exec();
 }
 
-void gui::FileDialog()
+void gui::LoadFileDialog()
 {
     GraphicsFactory gf;
-    Graphics * graphics;
 
     QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
-                           "C://",
-                           tr("txt (*.txt)"));
-    QByteArray ba = file.toLatin1();
-    const char *c_str = ba.data();
-    graphics = gf.buildGraphicsFromFile(c_str);
+                   "./",
+                   tr("txt (*.txt)"));
+    if(file != "")
+    {
+        QByteArray ba = file.toLatin1();
+        const char *c_str = ba.data();
+        currentGraphics = gf.buildGraphicsFromFile(c_str);
 
-    qDebug() << "Working on file " << file;
+        qDebug() << "Working on file " << file;
 
-    graphics->accept(pv);
+        currentGraphics->accept(pv);
 
-    for(int i = 0 ; i < pv.getGraphics().size(); i++){
-        scene->addItem(pv.getGraphics().at(i));
+        for(int i = 0 ; i < pv.getGraphics().size(); i++)
+        {
+            scene->addItem(pv.getGraphics().at(i));
+        }
+        scene->update();
+        saveFile->setEnabled(true);
     }
-    scene->update();
 }
 
+void gui::SaveFileDialog()
+{
+    DescriptionVisitor dv;
+    currentGraphics->accept(dv);
+    cout << "description = " << dv.getDescription() << endl;
 
+    QString file = QFileDialog::getSaveFileName(this, tr("Load File"),
+                   "./",
+                   tr("txt (*.txt)"));
+    QByteArray ba = file.toLatin1();
+    const char *c_str = ba.data();
+
+    ofstream myfile (c_str);
+    if (myfile.is_open())
+    {
+        myfile << dv.getDescription();
+        myfile.close();
+    }
+}

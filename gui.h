@@ -20,6 +20,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Circle.h"
+#include "Rectangle.h"
+#include "Square.h"
+#include "DescriptionVisitor.h"
 
 using namespace std;
 
@@ -46,9 +50,11 @@ class gui: public QMainWindow
         QAction *aboutDeveloper, *loadFile, *saveFile;
         QMenu *about, *file;
         PaintVisitor pv;
+        Graphics *currentGraphics;
     private slots:
-        void FileDialog();
+        void LoadFileDialog();
         void MessageDialog();
+        void SaveFileDialog();
 };
 
 #endif // GUI_H
