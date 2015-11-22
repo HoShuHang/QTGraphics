@@ -111,7 +111,7 @@ void gui::SaveFileDialog()
     currentGraphics->accept(dv);
     cout << "description = " << dv.getDescription() << endl;
 
-    QString file = QFileDialog::getSaveFileName(this, tr("Load File"),
+    QString file = QFileDialog::getSaveFileName(this, tr("Save File"),
                    "./",
                    tr("txt (*.txt)"));
     QByteArray ba = file.toLatin1();
