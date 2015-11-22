@@ -81,32 +81,19 @@ void gui::MessageDialog()
 
 void gui::FileDialog()
 {
-    QFileDialog d;
-    QStringList fileName;
-    if(d.exec())
-        fileName = d.selectedFiles();
     GraphicsFactory gf;
     Graphics * graphics;
-    foreach (QString s, fileName)
-    {
-        QByteArray ba = s.toLatin1();
-        const char *c_str = ba.data();
-        graphics = gf.buildGraphicsFromFile(c_str);
-        qDebug() << "Working on file " << s;
-    }
-    graphics->accept(pv);
 
-//    CompositeGraphics g;
-//    g.add(new SimpleGraphics(new Circle(0,0,1)));
-//    g.add(new SimpleGraphics(new Square(-2,-2,2)));
-//
-//    SimpleGraphics r(new Rectangle (-1,-1,1,3));
-//
-//    CompositeGraphics h;
-//    h.add(&g);
-//    h.add(&r);
-//
-//    g.accept(pv);
+    QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
+                           "C://",
+                           tr("txt (*.txt)"));
+    QByteArray ba = file.toLatin1();
+    const char *c_str = ba.data();
+    graphics = gf.buildGraphicsFromFile(c_str);
+
+    qDebug() << "Working on file " << file;
+
+    graphics->accept(pv);
 
     for(int i = 0 ; i < pv.getGraphics().size(); i++){
         scene->addItem(pv.getGraphics().at(i));
