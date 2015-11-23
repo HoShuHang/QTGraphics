@@ -12,6 +12,7 @@
 #include <QString>
 #include <QWidget>
 #include <QFileDialog>
+#include <QToolBar>
 
 #include "Painter.h"
 #include "PaintVisitor.h"
@@ -43,6 +44,7 @@ class gui: public QMainWindow
         void MessageBox(const QString _message);
         void CreateActions();
         void CreateMenus();
+        void CreateTools();
         void SetActionConnection();
 
     protected:

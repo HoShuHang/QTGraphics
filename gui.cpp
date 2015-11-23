@@ -7,6 +7,7 @@ gui::gui()
     CreateView();
     CreateActions();
     CreateMenus();
+    CreateTools();
     SetActionConnection();
     QString title = "Sample";
     setWindowTitle(title);
@@ -48,8 +49,10 @@ void gui::SetActionConnection()
 
 void gui::CreateActions()
 {
-    loadFile = new QAction("loadFile", widget);
-    saveFile = new QAction("saveFile", widget);
+    QPixmap loadPic("pic/load.png");
+    QPixmap savePic("pic/save.png");
+    loadFile = new QAction(loadPic, "loadFile", widget);
+    saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
     aboutDeveloper = new QAction("aboutDeveloper", widget);
 }
@@ -62,6 +65,15 @@ void gui::CreateMenus()
     about = menuBar()->addMenu("About");
     about->addAction(aboutDeveloper);
 }
+
+void gui::CreateTools()
+{
+    QToolBar *fileToolBar = addToolBar("tool bar");
+    fileToolBar->addAction(loadFile);
+    fileToolBar->addAction(saveFile);
+    fileToolBar->addSeparator();
+}
+
 void gui::Display()
 {
     Painter *item = new Painter(-2,-2, 3, 4, widget);
