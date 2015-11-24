@@ -11,7 +11,6 @@ public:
     void add (Graphics *g);
     Rectangle getBoundingBox();
     void accept(GraphicsVisitor & av);
-    void paint(QPainter *p);
     QGraphicsItem* createPainter(QWidget *w);
 private:
     std::vector<Graphics *> g_obj;

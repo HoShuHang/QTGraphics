@@ -50,14 +50,6 @@ void CompositeGraphics::accept(GraphicsVisitor & av)
     av.leave();
 }
 
-void CompositeGraphics::paint(QPainter *p)
-{
-    std::cout << "CompositeGraphics :: Paint" << std::endl;
-    QPen pen(Qt::green);
-    p->setPen(pen);
-    getBoundingBox().paint(p);
-}
-
 QGraphicsItem* CompositeGraphics::createPainter(QWidget *w)
 {
     return getBoundingBox().createPainter(w, true);

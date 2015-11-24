@@ -27,9 +27,8 @@ QRectF Painter::boundingRect() const
 
 void Painter::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-//    QPen pen(Qt::red);
-//    painter->setPen(pen);
-//    painter->drawRect(posx, posy, width, heigh);
-    graphics->paint(painter);
+    QPen pen(Qt::red);
+    painter->setPen(pen);
+    painter->drawRect(posx, posy, width, heigh);
 }
 

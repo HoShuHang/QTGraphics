@@ -9,7 +9,6 @@ public:
     int area();
     Rectangle getBoundingBox();
     std::string describe();
-    void paint(QPainter *p);
     QGraphicsItem* createPainter(QWidget *widget, bool isComposite);
     //int perimeter();
 private:

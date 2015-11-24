@@ -19,11 +19,6 @@ std::string Rectangle::describe()
     return oss.str();
 }
 
-void Rectangle::paint(QPainter *p)
-{
-    p->drawRect(x, y, w, l);
-}
-
 QGraphicsItem* Rectangle::createPainter(QWidget *widget, bool isComposite)
 {
     RectanglePainter* i = new RectanglePainter(x, y, w, l, widget);

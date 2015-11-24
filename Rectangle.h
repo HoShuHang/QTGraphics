@@ -13,7 +13,6 @@ public:
     int urx() const{return x+l;}
     int ury() const{return y+w;}
     std::string describe();
-    void paint(QPainter *p);
     QGraphicsItem* createPainter(QWidget *widget, bool isComposite);
     //int perimeter();
 private:

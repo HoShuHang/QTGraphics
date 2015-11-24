@@ -13,11 +13,6 @@ std::string Square::describe() {
     return oss.str();
 }
 
-void Square::paint(QPainter *p)
-{
-    p->drawRect(x, y, l, l);
-}
-
 QGraphicsItem* Square::createPainter(QWidget *widget, bool isComposite)
 {
     RectanglePainter* item = new RectanglePainter(x, y, l, l, widget);
