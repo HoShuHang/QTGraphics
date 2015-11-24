@@ -21,13 +21,14 @@ QRectF CirclePainter::boundingRect() const
 
 void CirclePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-    QPen rPen(Qt::red);
+    QPen rPen(Qt::blue);
     QPen gPen(Qt::green);
     if(isComposite)
         painter->setPen(gPen);
     else
         painter->setPen(rPen);
-    painter->drawEllipse(centerX, centerY, radius, radius);
+    QPoint point(centerX, centerY);
+    painter->drawEllipse(point, radius, radius);
 }
 
 void CirclePainter::SetComposite(bool isC)

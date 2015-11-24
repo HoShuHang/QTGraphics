@@ -21,17 +21,12 @@ std::string Rectangle::describe()
 
 void Rectangle::paint(QPainter *p)
 {
-    std::cout << "---------------------------" << std::endl;
-    std::cout << "x = " << x << std::endl;
-    std::cout << "y = " << y << std::endl;
-    std::cout << "w = " << w << std::endl;
-    std::cout << "l = " << l << std::endl;
     p->drawRect(x, y, w, l);
 }
 
 QGraphicsItem* Rectangle::createPainter(QWidget *widget, bool isComposite)
 {
-    RectanglePainter* i = new RectanglePainter(x, y, l, l, widget);
+    RectanglePainter* i = new RectanglePainter(x, y, w, l, widget);
     i->SetComposite(isComposite);
     return i;
 }

@@ -1,6 +1,6 @@
 #include "RectanglePainter.h"
 
-RectanglePainter::RectanglePainter( qreal ll_x, qreal ll_y, qreal _width, qreal _heigh,QWidget *_widget)
+RectanglePainter::RectanglePainter( qreal ll_x, qreal ll_y, qreal _heigh, qreal _width,QWidget *_widget)
 {
     //ctor
     posx = ll_x;
@@ -22,7 +22,7 @@ QRectF RectanglePainter::boundingRect() const
 
 void RectanglePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
-    QPen rPen(Qt::red);
+    QPen rPen(Qt::blue);
     QPen gPen(Qt::green);
     if(isComposite)
         painter->setPen(gPen);
