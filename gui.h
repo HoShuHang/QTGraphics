@@ -55,11 +55,15 @@ class gui: public QMainWindow
         QMenu *about, *file, *createShape;
         PaintVisitor pv;
         Graphics *currentGraphics;
+        Model model;
+        void UpdateScene();
     private slots:
         void LoadFileDialog();
         void MessageDialog();
         void SaveFileDialog();
-        Model m;
+        void CreateSquare();
+        void CreateRectangle();
+        void CreateCircle();
 };
 
 #endif // GUI_H

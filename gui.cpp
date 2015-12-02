@@ -45,6 +45,9 @@ void gui::SetActionConnection()
     connect(aboutDeveloper, SIGNAL(triggered()), this, SLOT(MessageDialog()));
     connect(loadFile, SIGNAL(triggered()), this, SLOT(LoadFileDialog()));
     connect(saveFile, SIGNAL(triggered()), this, SLOT(SaveFileDialog()));
+    connect(createCircle, SIGNAL(triggered()), this, SLOT(CreateCircle()));
+    connect(createRectangle, SIGNAL(triggered()), this, SLOT(CreateRectangle()));
+    connect(createSquare, SIGNAL(triggered()), this, SLOT(CreateSquare()));
 }
 
 void gui::CreateActions()
@@ -130,6 +133,25 @@ void gui::LoadFileDialog()
     }
 }
 
+void gui::UpdateScene()
+{
+    scene->clear();
+    scene->update();
+    PaintVisitor p;
+    for(int i = 0; i < model.getGraphics().size(); i++)
+    {
+            cout << "i" << endl;
+        Graphics *g = model.getGraphics().at(i);
+        g->accept(p);
+        for(int j = 0 ; j < p.getGraphics().size(); j++)
+        {
+            cout << "j" << endl;
+            scene->addItem(p.getGraphics().at(j));
+        }
+        scene->update();
+    }
+}
+
 void gui::SaveFileDialog()
 {
     DescriptionVisitor dv;
@@ -148,4 +170,24 @@ void gui::SaveFileDialog()
         myfile << dv.getDescription();
         myfile.close();
     }
+}
+
+void gui::CreateCircle()
+{
+    model.createCircle();
+    UpdateScene();
+}
+
+void gui::CreateRectangle()
+{
+    model.createRectangle();
+    UpdateScene();
+}
+
+void gui::CreateSquare()
+{
+//    model.createSquare();
+//    UpdateScene();
+    scene->clear();
+    scene->update();
 }
