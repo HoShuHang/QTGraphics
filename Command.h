@@ -7,14 +7,13 @@ using namespace std;
 class Command
 {
 public:
-    void Undo();
-    void Redo();
+    static void Undo();
+    static void Redo();
     void Excute();
-    virtual void DoExcute();
-    virtual void DoUnExcute();
-private:
-    stack<Command *> undo;
-    stack<Command *> redo;
+    virtual void DoExcute()=0;
+    virtual void DoUnExcute()=0;
 };
+static stack<Command *> undo;
+static stack<Command *> redo;
 
 #endif // COMMAND_H_INCLUDED
