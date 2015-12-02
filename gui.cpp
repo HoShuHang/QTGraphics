@@ -51,10 +51,16 @@ void gui::CreateActions()
 {
     QPixmap loadPic("pic/load.png");
     QPixmap savePic("pic/save.png");
+    QPixmap circle("pic/circle.png");
+    QPixmap rectangle("pic/rectangle.png");
+    QPixmap square("pic/square.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
     aboutDeveloper = new QAction("aboutDeveloper", widget);
+    createCircle = new QAction(circle, "createCircle", widget);
+    createRectangle = new QAction(rectangle, "createRectangle", widget);
+    createSquare = new QAction(square, "createSquare", widget);
 }
 
 void gui::CreateMenus()
@@ -64,6 +70,10 @@ void gui::CreateMenus()
     file->addAction(saveFile);
     about = menuBar()->addMenu("About");
     about->addAction(aboutDeveloper);
+    createShape = menuBar()->addMenu("Create Shape");
+    createShape->addAction(createSquare);
+    createShape->addAction(createRectangle);
+    createShape->addAction(createCircle);
 }
 
 void gui::CreateTools()
@@ -72,6 +82,9 @@ void gui::CreateTools()
     fileToolBar->addAction(loadFile);
     fileToolBar->addAction(saveFile);
     fileToolBar->addSeparator();
+    fileToolBar->addAction(createCircle);
+    fileToolBar->addAction(createRectangle);
+    fileToolBar->addAction(createSquare);
 }
 
 void gui::Display()

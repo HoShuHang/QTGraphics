@@ -25,6 +25,7 @@
 #include "Rectangle.h"
 #include "Square.h"
 #include "DescriptionVisitor.h"
+#include "Model.h"
 
 using namespace std;
 
@@ -50,13 +51,15 @@ class gui: public QMainWindow
     protected:
     private:
         QAction *aboutDeveloper, *loadFile, *saveFile;
-        QMenu *about, *file;
+        QAction *createRectangle, *createSquare, *createCircle;
+        QMenu *about, *file, *createShape;
         PaintVisitor pv;
         Graphics *currentGraphics;
     private slots:
         void LoadFileDialog();
         void MessageDialog();
         void SaveFileDialog();
+        Model m;
 };
 
 #endif // GUI_H
