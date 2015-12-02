@@ -69,7 +69,9 @@ void gui::CreateActions()
     createRectangle = new QAction(rectangle, "createRectangle", widget);
     createSquare = new QAction(square, "createSquare", widget);
     undo = new QAction(undoPic, "undo", widget);
+    undo->setEnabled(false);
     redo = new QAction(redoPic, "redo", widget);
+    redo->setEnabled(false);
 }
 
 void gui::CreateMenus()
@@ -145,7 +147,6 @@ void gui::UpdateScene()
 {
     scene->clear();
     scene->update();
-    cout << "size = " << model.getGraphics()->size() << endl;
     for(int i = 0; i < model.getGraphics()->size(); i++)
     {
         PaintVisitor p;
@@ -182,29 +183,41 @@ void gui::SaveFileDialog()
 void gui::CreateCircle()
 {
     model.createCircle();
-    UpdateScene();
+    Update();
 }
 
 void gui::CreateRectangle()
 {
     model.createRectangle();
-    UpdateScene();
+    Update();
 }
 
 void gui::CreateSquare()
 {
     model.createSquare();
-    UpdateScene();
+    Update();
 }
 
 void gui::Undo()
 {
     model.undo();
-    UpdateScene();
+    Update();
 }
 
 void gui::Redo()
 {
     model.redo();
+    Update();
+}
+
+void gui::Update()
+{
     UpdateScene();
+    UpdateButtonEnable();
+}
+
+void gui::UpdateButtonEnable()
+{
+    undo->setEnabled(model.isUndoEnable());
+    redo->setEnabled(model.isRedoEnable());
 }

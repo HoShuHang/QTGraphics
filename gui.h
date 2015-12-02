@@ -57,7 +57,9 @@ class gui: public QMainWindow
         PaintVisitor pv;
         Graphics *currentGraphics;
         Model model;
+        void Update();
         void UpdateScene();
+        void UpdateButtonEnable();
     private slots:
         void LoadFileDialog();
         void MessageDialog();

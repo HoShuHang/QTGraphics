@@ -21,6 +21,8 @@ public:
     vector<Graphics *> *getGraphics();
     void undo();
     void redo();
+    bool isUndoEnable();
+    bool isRedoEnable();
 private:
     vector<Graphics *> *graphics = new vector<Graphics *>;
 };

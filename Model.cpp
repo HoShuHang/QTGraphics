@@ -3,7 +3,6 @@
 void Model::createCircle()
 {
     Graphics *g = new SimpleGraphics(new Circle(50, 0, 50));
-//    graphics.push_back(g);
     Command *c = new CreateCommand(graphics, g);
     c->Excute();
 }
@@ -11,7 +10,6 @@ void Model::createCircle()
 void Model::createRectangle()
 {
     Graphics *g = new SimpleGraphics(new Rectangle(0, 0, 100, 50));
-//    graphics.push_back(g);
     Command *c = new CreateCommand(graphics, g);
     c->Excute();
 }
@@ -19,7 +17,6 @@ void Model::createRectangle()
 void Model::createSquare()
 {
     Graphics *g = new SimpleGraphics(new Square(50, 0, 50));
-//    graphics.push_back(g);
     Command *c = new CreateCommand(graphics, g);
     c->Excute();
 }
@@ -37,4 +34,14 @@ void Model::undo()
 void Model::redo()
 {
     Command::Redo();
+}
+
+bool Model::isUndoEnable()
+{
+    return !Command::undo->empty();
+}
+
+bool Model::isRedoEnable()
+{
+    return !Command::redo->empty();
 }
