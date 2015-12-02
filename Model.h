@@ -7,6 +7,8 @@
 #include "Circle.h"
 #include "Rectangle.h"
 #include "Square.h"
+#include "Command.h"
+#include "CreateCommand.h"
 
 using namespace std;
 
@@ -16,9 +18,11 @@ public:
     void createCircle();
     void createRectangle();
     void createSquare();
-    vector<Graphics *> getGraphics();
+    vector<Graphics *> *getGraphics();
+    void undo();
+    void redo();
 private:
-    vector<Graphics *> graphics;
+    vector<Graphics *> *graphics = new vector<Graphics *>;
 };
 
 #endif // MODEL_H_INCLUDED
