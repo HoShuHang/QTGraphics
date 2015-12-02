@@ -52,6 +52,7 @@ class gui: public QMainWindow
     private:
         QAction *aboutDeveloper, *loadFile, *saveFile;
         QAction *createRectangle, *createSquare, *createCircle;
+        QAction *undo, *redo;
         QMenu *about, *file, *createShape;
         PaintVisitor pv;
         Graphics *currentGraphics;
@@ -64,6 +65,8 @@ class gui: public QMainWindow
         void CreateSquare();
         void CreateRectangle();
         void CreateCircle();
+        void Undo();
+        void Redo();
 };
 
 #endif // GUI_H

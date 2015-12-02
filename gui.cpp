@@ -48,6 +48,8 @@ void gui::SetActionConnection()
     connect(createCircle, SIGNAL(triggered()), this, SLOT(CreateCircle()));
     connect(createRectangle, SIGNAL(triggered()), this, SLOT(CreateRectangle()));
     connect(createSquare, SIGNAL(triggered()), this, SLOT(CreateSquare()));
+    connect(undo, SIGNAL(triggered()), this, SLOT(Undo()));
+    connect(redo, SIGNAL(triggered()), this, SLOT(Redo()));
 }
 
 void gui::CreateActions()
@@ -57,6 +59,8 @@ void gui::CreateActions()
     QPixmap circle("pic/circle.png");
     QPixmap rectangle("pic/rectangle.png");
     QPixmap square("pic/square.png");
+    QPixmap undoPic("pic/undo.png");
+    QPixmap redoPic("pic/redo.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
@@ -64,6 +68,8 @@ void gui::CreateActions()
     createCircle = new QAction(circle, "createCircle", widget);
     createRectangle = new QAction(rectangle, "createRectangle", widget);
     createSquare = new QAction(square, "createSquare", widget);
+    undo = new QAction(undoPic, "undo", widget);
+    redo = new QAction(redoPic, "redo", widget);
 }
 
 void gui::CreateMenus()
@@ -88,6 +94,8 @@ void gui::CreateTools()
     fileToolBar->addAction(createCircle);
     fileToolBar->addAction(createRectangle);
     fileToolBar->addAction(createSquare);
+    fileToolBar->addAction(undo);
+    fileToolBar->addAction(redo);
 }
 
 void gui::Display()
@@ -136,10 +144,12 @@ void gui::LoadFileDialog()
 void gui::UpdateScene()
 {
     scene->clear();
-    for(int i = 0; i < model.getGraphics().size(); i++)
+    scene->update();
+    cout << "size = " << model.getGraphics()->size() << endl;
+    for(int i = 0; i < model.getGraphics()->size(); i++)
     {
         PaintVisitor p;
-        Graphics *g = model.getGraphics().at(i);
+        Graphics *g = model.getGraphics()->at(i);
         g->accept(p);
         for(int j = 0 ; j < p.getGraphics().size(); j++)
         {
@@ -184,5 +194,17 @@ void gui::CreateRectangle()
 void gui::CreateSquare()
 {
     model.createSquare();
+    UpdateScene();
+}
+
+void gui::Undo()
+{
+    model.undo();
+    UpdateScene();
+}
+
+void gui::Redo()
+{
+    model.redo();
     UpdateScene();
 }
