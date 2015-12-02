@@ -12,8 +12,8 @@ public:
     void Excute();
     virtual void DoExcute()=0;
     virtual void DoUnExcute()=0;
+    static stack<Command *> *undo;
+    static stack<Command *> *redo;
 };
-static stack<Command *> undo;
-static stack<Command *> redo;
 
 #endif // COMMAND_H_INCLUDED
