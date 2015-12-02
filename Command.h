@@ -9,8 +9,9 @@ class Command
 public:
     void Undo();
     void Redo();
-    virtual void Execute();
-    virtual void UnExcute();
+    void Excute();
+    virtual void DoExcute();
+    virtual void DoUnExcute();
 private:
     stack<Command *> undo;
     stack<Command *> redo;

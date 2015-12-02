@@ -6,7 +6,7 @@ void Command::Undo()
     Command *c = undo.top();
     undo.pop();
     redo.push(c);
-    c->UnExcute();
+    c->DoUnExcute();
 }
 void Command::Redo()
 {
@@ -15,5 +15,12 @@ void Command::Redo()
     Command *c = redo.top();
     redo.pop();
     undo.push(c);
-    c->UnExcute();
+    c->DoExcute();
+}
+void Command::Excute()
+{
+    undo.push(this);
+    while(!redo.empty())
+        redo.pop();
+    DoExcute();
 }
