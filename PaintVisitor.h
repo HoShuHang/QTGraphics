@@ -11,7 +11,6 @@ class PaintVisitor : public GraphicsVisitor
 {
 public:
     PaintVisitor();
-//    PaintVisitor(QWidget *w);
     std::vector<QGraphicsItem *> getGraphics();
     void visitSimpleGraphics(SimpleGraphics *sg);
     void visitCompositeGraphics (CompositeGraphics *cg);
