@@ -136,16 +136,13 @@ void gui::LoadFileDialog()
 void gui::UpdateScene()
 {
     scene->clear();
-    scene->update();
-    PaintVisitor p;
     for(int i = 0; i < model.getGraphics().size(); i++)
     {
-            cout << "i" << endl;
+        PaintVisitor p;
         Graphics *g = model.getGraphics().at(i);
         g->accept(p);
         for(int j = 0 ; j < p.getGraphics().size(); j++)
         {
-            cout << "j" << endl;
             scene->addItem(p.getGraphics().at(j));
         }
         scene->update();
@@ -186,8 +183,6 @@ void gui::CreateRectangle()
 
 void gui::CreateSquare()
 {
-//    model.createSquare();
-//    UpdateScene();
-    scene->clear();
-    scene->update();
+    model.createSquare();
+    UpdateScene();
 }
