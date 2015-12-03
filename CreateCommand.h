@@ -11,8 +11,8 @@ class CreateCommand : public Command
 {
 public:
     CreateCommand(vector<Graphics *> *g_vector, Graphics *g);
-    void DoExcute();
-    void DoUnExcute();
+    void Excute();
+    void UnExcute();
 private:
     vector<Graphics *> *graphics;
     Graphics *graphic;

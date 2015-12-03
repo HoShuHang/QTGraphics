@@ -6,12 +6,12 @@ CreateCommand::CreateCommand(vector<Graphics *> *g_vector, Graphics *g)
     graphic = g;
 }
 
-void CreateCommand::DoExcute()
+void CreateCommand::Excute()
 {
     graphics->push_back(graphic);
 }
 
-void CreateCommand::DoUnExcute()
+void CreateCommand::UnExcute()
 {
     graphics->pop_back();
 }

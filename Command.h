@@ -7,8 +7,8 @@ using namespace std;
 class Command
 {
 public:
-    virtual void DoExcute()=0;
-    virtual void DoUnExcute()=0;
+    virtual void Excute()=0;
+    virtual void UnExcute()=0;
 };
 
 #endif // COMMAND_H_INCLUDED

@@ -7,7 +7,7 @@ void CommandManager::Undo()
     Command *c = undo.top();
     undo.pop();
     redo.push(c);
-    c->DoUnExcute();
+    c->UnExcute();
 }
 
 void CommandManager::Redo()
@@ -17,7 +17,7 @@ void CommandManager::Redo()
     Command *c = redo.top();
     redo.pop();
     undo.push(c);
-    c->DoExcute();
+    c->Excute();
 }
 
 void CommandManager::createCommand(vector<Graphics *> *g_vector, Graphics *g)
@@ -26,7 +26,7 @@ void CommandManager::createCommand(vector<Graphics *> *g_vector, Graphics *g)
     undo.push(c);
     while(!redo.empty())
         redo.pop();
-    c->DoExcute();
+    c->Excute();
 }
 
 bool CommandManager::isUndoEmpty()
