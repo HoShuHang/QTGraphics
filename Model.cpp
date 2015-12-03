@@ -3,22 +3,19 @@
 void Model::createCircle()
 {
     Graphics *g = new SimpleGraphics(new Circle(50, 0, 50));
-    Command *c = new CreateCommand(graphics, g);
-    c->Excute();
+    cm.createCommand(graphics, g);
 }
 
 void Model::createRectangle()
 {
     Graphics *g = new SimpleGraphics(new Rectangle(0, 0, 100, 50));
-    Command *c = new CreateCommand(graphics, g);
-    c->Excute();
+    cm.createCommand(graphics, g);
 }
 
 void Model::createSquare()
 {
     Graphics *g = new SimpleGraphics(new Square(50, 0, 50));
-    Command *c = new CreateCommand(graphics, g);
-    c->Excute();
+    cm.createCommand(graphics, g);
 }
 
 vector<Graphics *> *Model::getGraphics()
@@ -28,20 +25,20 @@ vector<Graphics *> *Model::getGraphics()
 
 void Model::undo()
 {
-    Command::Undo();
+    cm.Undo();
 }
 
 void Model::redo()
 {
-    Command::Redo();
+    cm.Redo();
 }
 
 bool Model::isUndoEnable()
 {
-    return !Command::undo->empty();
+    return cm.isUndoEmpty();
 }
 
 bool Model::isRedoEnable()
 {
-    return !Command::redo->empty();
+    return cm.isRedoEmpty();
 }

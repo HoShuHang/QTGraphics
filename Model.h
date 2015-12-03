@@ -9,6 +9,7 @@
 #include "Square.h"
 #include "Command.h"
 #include "CreateCommand.h"
+#include "CommandManager.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ public:
     bool isRedoEnable();
 private:
     vector<Graphics *> *graphics = new vector<Graphics *>;
+    CommandManager cm;
 };
 
 #endif // MODEL_H_INCLUDED
