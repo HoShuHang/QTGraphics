@@ -2,6 +2,7 @@
 #define COMMANDMANAGER_H_INCLUDED
 
 #include "Command.h"
+#include <stack>
 #include <vector>
 #include "Graphics.h"
 #include "CreateCommand.h"
