@@ -16,6 +16,7 @@ using namespace std;
 class Model
 {
 public:
+    Model();
     void createCircle();
     void createRectangle();
     void createSquare();
@@ -24,9 +25,13 @@ public:
     void redo();
     bool isUndoEnable();
     bool isRedoEnable();
+    void deleteGraphics();
+    void moveGraphic(Graphics *g, int mX, int mY);
+    void select(int x, int y);
+    bool isGraphicsSelect();
 private:
-    vector<Graphics *> *graphics = new vector<Graphics *>;
-    CommandManager cm;
+    vector<Graphics *> *graphics;
+    CommandManager *cm;
 };
 
 #endif // MODEL_H_INCLUDED

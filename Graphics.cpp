@@ -9,3 +9,11 @@ void Graphics::add(Graphics *g) {throw std::string("Cannot add child");}
 void Graphics::accept(GraphicsVisitor & av) {}
 Graphics::Graphics(){}
 Graphics::~Graphics(){}
+bool Graphics::isSelected()
+{
+    return selected;
+}
+void Graphics::setSelected(bool s)
+{
+    selected = s;
+}

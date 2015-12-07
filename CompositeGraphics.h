@@ -11,7 +11,10 @@ public:
     void add (Graphics *g);
     Rectangle getBoundingBox();
     void accept(GraphicsVisitor & av);
-    QGraphicsItem* createPainter(QWidget *w);
+    QGraphicsItem* createPainter();
+    bool select(int x, int y);
+    void draw(QPainter * painter);
+    void moveLocation(int x, int y);
 private:
     std::vector<Graphics *> g_obj;
 };

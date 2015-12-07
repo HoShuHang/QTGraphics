@@ -45,37 +45,7 @@ void CirclePainter::SetComposite(bool isC)
     isComposite = isC;
 }
 
-void CirclePainter::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
+void CirclePainter::SetGUI(gui *g)
 {
-    cout << "hoverEnterEvent : 41" << endl;
-}
-
-void CirclePainter::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
-{
-cout << "hoverLeaveEvent : 46" << endl;
-}
-
-void CirclePainter::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
-{
-cout << "mouseMoveEvent : 51" << endl;
-}
-
-void CirclePainter::mouseMoveEvent(QGraphicsSceneDragDropEvent *event)
-{
-cout << "mouseMoveEvent : 56" << endl;
-}
-
-void CirclePainter::mousePressEvent (QGraphicsSceneMouseEvent * event )
-{
-cout << "mousePressEvent : 61" << endl;
-}
-
-void CirclePainter::mousePressEvent(QGraphicsSceneDragDropEvent *event)
-{
-cout << "mousePressEvent : 66" << endl;
-}
-
-void CirclePainter::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
-{
-cout << "mouseReleaseEvent : 71" << endl;
+    guiview = g;
 }

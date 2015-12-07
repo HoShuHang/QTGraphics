@@ -7,6 +7,7 @@
 //can delete
 #include <iostream>
 #include "DescriptionVisitor.h"
+#include "CompositePainter.h"
 
 CompositeGraphics::CompositeGraphics() {}
 void CompositeGraphics::add(Graphics *g)
@@ -50,7 +51,27 @@ void CompositeGraphics::accept(GraphicsVisitor & av)
     av.leave();
 }
 
-QGraphicsItem* CompositeGraphics::createPainter(QWidget *w)
+QGraphicsItem* CompositeGraphics::createPainter()
 {
-    return getBoundingBox().createPainter(w, true);
+//    return getBoundingBox().createPainter(w, true);
+    return new CompositePainter(this);
+}
+
+bool CompositeGraphics::select(int x, int y)
+{
+    selected = getBoundingBox().select(x, y);
+    return selected;
+}
+
+void CompositeGraphics::draw(QPainter * painter)
+{
+    painter->drawRect(getBoundingBox().llx(), getBoundingBox().lly(), getBoundingBox().urx() - getBoundingBox().llx(), getBoundingBox().ury() - getBoundingBox().lly());
+}
+void CompositeGraphics::moveLocation(int x, int y)
+{
+    getBoundingBox().moveLocation(x,y);
+    std::vector<Graphics *>::iterator i;
+    for (i=g_obj.begin(); i != g_obj.end(); ++i){
+        (*i)->moveLocation(x,y);
+    }
 }

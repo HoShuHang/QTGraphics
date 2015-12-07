@@ -1,5 +1,6 @@
 #include "RectanglePainter.h"
-
+#include <iostream>
+using namespace std;
 RectanglePainter::RectanglePainter( qreal ll_x, qreal ll_y, qreal _heigh, qreal _width,QWidget *_widget)
 {
     //ctor
@@ -8,6 +9,8 @@ RectanglePainter::RectanglePainter( qreal ll_x, qreal ll_y, qreal _heigh, qreal 
     width = _width;
     heigh = _heigh;
     widget = _widget;
+    _location.setX(0);
+    _location.setY(0);
 }
 
 RectanglePainter::~RectanglePainter()
@@ -34,4 +37,9 @@ void RectanglePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem 
 void RectanglePainter::SetComposite(bool isC)
 {
     isComposite = isC;
+}
+
+void RectanglePainter::SetGUI(gui *g)
+{
+    guiview = g;
 }

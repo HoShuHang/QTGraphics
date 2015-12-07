@@ -15,7 +15,6 @@
 #include <QToolBar>
 
 #include "Painter.h"
-#include "PaintVisitor.h"
 #include "GraphicsFactory.h"
 
 #include <iostream>
@@ -26,6 +25,10 @@
 #include "Square.h"
 #include "DescriptionVisitor.h"
 #include "Model.h"
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSceneDragDropEvent>
+#include "GraphicsScene.h"
 
 using namespace std;
 
@@ -33,42 +36,44 @@ using namespace std;
 class gui: public QMainWindow
 {
     Q_OBJECT
-    public:
-        gui();
-        virtual ~gui();
-        QGraphicsView *graphicsView;
-        QGraphicsScene *scene;
-        QWidget *widget;
+public:
+    gui();
+    virtual ~gui();
+    QGraphicsView *graphicsView;
+    GraphicsScene *scene;
+    QWidget *widget;
 
-        void Display();
-        void CreateView();
-        void MessageBox(const QString _message);
-        void CreateActions();
-        void CreateMenus();
-        void CreateTools();
-        void SetActionConnection();
-
-    protected:
-    private:
-        QAction *aboutDeveloper, *loadFile, *saveFile;
-        QAction *createRectangle, *createSquare, *createCircle;
-        QAction *undo, *redo;
-        QMenu *about, *file, *createShape;
-        PaintVisitor pv;
-        Graphics *currentGraphics;
-        Model model;
-        void Update();
-        void UpdateScene();
-        void UpdateButtonEnable();
-    private slots:
-        void LoadFileDialog();
-        void MessageDialog();
-        void SaveFileDialog();
-        void CreateSquare();
-        void CreateRectangle();
-        void CreateCircle();
-        void Undo();
-        void Redo();
+    void Display();
+    void CreateView();
+    void MessageBox(const QString _message);
+    void CreateActions();
+    void CreateMenus();
+    void CreateTools();
+    void SetActionConnection();
+    void mouseReleaseEvent (QGraphicsSceneMouseEvent * event );
+    void mousePressEvent (QGraphicsSceneMouseEvent * event );
+    void mouseMoveEvent ( QGraphicsSceneMouseEvent * event );
+private:
+    QAction *aboutDeveloper, *loadFile, *saveFile;
+    QAction *createRectangle, *createSquare, *createCircle;
+    QAction *undo, *redo, *deleteGraphics;
+    QMenu *about, *file, *createShape;
+//    PaintVisitor pv;
+    Graphics *currentGraphics;
+    Model *model;
+    void Update();
+    void UpdateScene();
+    void UpdateButtonEnable();
+    int iniX, iniY;
+private slots:
+    void LoadFileDialog();
+    void MessageDialog();
+    void SaveFileDialog();
+    void CreateSquare();
+    void CreateRectangle();
+    void CreateCircle();
+    void Undo();
+    void Redo();
 };
 
 #endif // GUI_H

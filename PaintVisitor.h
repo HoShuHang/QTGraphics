@@ -6,16 +6,18 @@
 #include "SimpleGraphics.h"
 #include "CompositeGraphics.h"
 #include "Painter.h"
+#include <Qpainter>
 
 class PaintVisitor : public GraphicsVisitor
 {
 public:
-    PaintVisitor();
-    std::vector<QGraphicsItem *> getGraphics();
+    PaintVisitor(QPainter *p);
+    std::vector<QGraphicsItem *> getPainters();
     void visitSimpleGraphics(SimpleGraphics *sg);
     void visitCompositeGraphics (CompositeGraphics *cg);
     void setWidget(QWidget *w);
 private:
+    QPainter *painter;
     QWidget *widget;
     std::vector<QGraphicsItem *> items;
 };

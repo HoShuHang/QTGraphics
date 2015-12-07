@@ -3,6 +3,9 @@
 #include <QGraphicsItem>
 #include <QPen>
 #include <QPainter>
+#include "Graphics.h"
+#include "gui.h"
+
 class CirclePainter:public QGraphicsItem
 {
 public:
@@ -18,16 +21,10 @@ public:
     QPainterPath shape() const;
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
     void SetComposite(bool isC);
-protected:
-    virtual void hoverEnterEvent ( QGraphicsSceneHoverEvent * event );
-    virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event );
-    virtual void mouseMoveEvent ( QGraphicsSceneMouseEvent * event );
-    virtual void mouseMoveEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void mousePressEvent (QGraphicsSceneMouseEvent * event );
-    virtual void mousePressEvent(QGraphicsSceneDragDropEvent *event);
-    virtual void mouseReleaseEvent (QGraphicsSceneMouseEvent * event );
+    void SetGUI(gui *g);
 private:
     bool isComposite = false;
+    gui *guiview;
 };
 
 #endif // CIRCLEPAINTER_H_INCLUDED

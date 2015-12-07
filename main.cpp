@@ -4,7 +4,7 @@
 //#include "utGraphics.h"
 //#include "utHW3.h"
 #include "utTryQt.h"
-#include "utModel.h"
+//#include "utModel.h"
 //#include "utVisitor.h"
 
 int main(int argc, char** argv) {

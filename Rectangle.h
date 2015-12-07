@@ -14,6 +14,9 @@ public:
     int ury() const{return y+w;}
     std::string describe();
     QGraphicsItem* createPainter(QWidget *widget, bool isComposite);
+    bool select(int x, int y);
+    void draw(QPainter * painter);
+    void moveLocation(int mX, int mY);
     //int perimeter();
 private:
     int x, y;

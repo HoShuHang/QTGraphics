@@ -1,5 +1,10 @@
 #include "CommandManager.h"
+#include <iostream>
+using namespace std;
 
+CommandManager::CommandManager()
+{
+}
 void CommandManager::Undo()
 {
     if(undo.size() <= 0)
@@ -23,6 +28,23 @@ void CommandManager::Redo()
 void CommandManager::createCommand(vector<Graphics *> *g_vector, Graphics *g)
 {
     Command *c = new CreateCommand(g_vector, g);
+    excute(c);
+}
+
+void CommandManager::deleteCommand(vector<Graphics *> *g_vector, int i)
+{
+    Command *c = new DeleteCommand(g_vector, i);
+    excute(c);
+}
+
+void CommandManager::moveCommand(Graphics *g, int mX, int mY)
+{
+    Command *c = new MoveCommand(g, mX, mY);
+    excute(c);
+}
+
+void CommandManager::excute(Command *c)
+{
     undo.push(c);
     while(!redo.empty())
         redo.pop();

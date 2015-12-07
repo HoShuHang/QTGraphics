@@ -11,7 +11,10 @@ public:
     Rectangle getBoundingBox();
     void accept(GraphicsVisitor &av);
     Shape * shape();
-    QGraphicsItem* createPainter(QWidget *w);
+    QGraphicsItem* createPainter();
+    bool select(int x, int y);
+    void draw(QPainter * painter);
+    void moveLocation(int x, int y);
 private:
     Shape * s;
 };

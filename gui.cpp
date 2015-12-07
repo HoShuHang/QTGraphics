@@ -12,8 +12,9 @@ gui::gui()
     QString title = "Sample";
     setWindowTitle(title);
     setMinimumSize(800, 600);
-//    Display();
-
+    model = new Model();
+    iniX = 0;
+    iniY = 0;
 }
 
 gui::~gui()
@@ -27,12 +28,12 @@ void gui::CreateView()
 {
     widget = new QWidget();//繪製painter item的物件
     setCentralWidget(widget);
-    pv.setWidget(widget);
+//    pv.setWidget(widget);
     graphicsView = new QGraphicsView(widget);//要調整生成的位置
     QString gView = "graphicView";
     graphicsView->setObjectName(gView);
 
-    scene = new QGraphicsScene();//管理painter item的物件
+    scene = new GraphicsScene(this, QRect(-400,-300,800,600));//管理painter item的物件
     graphicsView->setScene(scene);
     QVBoxLayout *layout = new QVBoxLayout;//呈現畫面
     layout->setMargin(0);
@@ -61,6 +62,7 @@ void gui::CreateActions()
     QPixmap square("pic/square.png");
     QPixmap undoPic("pic/undo.png");
     QPixmap redoPic("pic/redo.png");
+    QPixmap deletePic("pic/delete.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
@@ -72,6 +74,8 @@ void gui::CreateActions()
     undo->setEnabled(false);
     redo = new QAction(redoPic, "redo", widget);
     redo->setEnabled(false);
+    deleteGraphics = new QAction(deletePic, "delete", widget);
+    deleteGraphics->setEnabled(false);
 }
 
 void gui::CreateMenus()
@@ -98,6 +102,7 @@ void gui::CreateTools()
     fileToolBar->addAction(createSquare);
     fileToolBar->addAction(undo);
     fileToolBar->addAction(redo);
+    fileToolBar->addAction(deleteGraphics);
 }
 
 void gui::Display()
@@ -132,12 +137,8 @@ void gui::LoadFileDialog()
 
         qDebug() << "Working on file " << file;
 
-        currentGraphics->accept(pv);
+        scene->addItem(currentGraphics->createPainter());
 
-        for(int i = 0 ; i < pv.getGraphics().size(); i++)
-        {
-            scene->addItem(pv.getGraphics().at(i));
-        }
         scene->update();
         saveFile->setEnabled(true);
     }
@@ -147,15 +148,10 @@ void gui::UpdateScene()
 {
     scene->clear();
     scene->update();
-    for(int i = 0; i < model.getGraphics()->size(); i++)
+    for(int i = 0; i < model->getGraphics()->size(); i++)
     {
-        PaintVisitor p;
-        Graphics *g = model.getGraphics()->at(i);
-        g->accept(p);
-        for(int j = 0 ; j < p.getGraphics().size(); j++)
-        {
-            scene->addItem(p.getGraphics().at(j));
-        }
+        Graphics *g = model->getGraphics()->at(i);
+        scene->addItem(g->createPainter());
         scene->update();
     }
 }
@@ -182,31 +178,31 @@ void gui::SaveFileDialog()
 
 void gui::CreateCircle()
 {
-    model.createCircle();
+    model->createCircle();
     Update();
 }
 
 void gui::CreateRectangle()
 {
-    model.createRectangle();
+    model->createRectangle();
     Update();
 }
 
 void gui::CreateSquare()
 {
-    model.createSquare();
+    model->createSquare();
     Update();
 }
 
 void gui::Undo()
 {
-    model.undo();
+    model->undo();
     Update();
 }
 
 void gui::Redo()
 {
-    model.redo();
+    model->redo();
     Update();
 }
 
@@ -218,6 +214,23 @@ void gui::Update()
 
 void gui::UpdateButtonEnable()
 {
-    undo->setEnabled(model.isUndoEnable());
-    redo->setEnabled(model.isRedoEnable());
+    undo->setEnabled(model->isUndoEnable());
+    redo->setEnabled(model->isRedoEnable());
+    deleteGraphics->setEnabled(model->isGraphicsSelect());
+}
+
+void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
+{
+    cout << "mouseMoveEvent";
+}
+
+void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
+{
+    cout << "mousePressEvent";
+}
+
+void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
+{
+    cout << "mouseReleaseEvent";
+    Update();
 }
