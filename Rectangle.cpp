@@ -4,7 +4,11 @@
 #include "RectanglePainter.h"
 
 Rectangle::Rectangle(int ll_x, int ll_y, int length, int width)
-    :x(ll_x),y(ll_y),l(length),w(width) {}
+    :x(ll_x),y(ll_y),l(length),w(width)
+{
+    moveX = 0;
+    moveY = 0;
+}
 int Rectangle::area()
 {
     return l*w;
@@ -36,11 +40,16 @@ bool Rectangle::select(int x, int y)
 
 void Rectangle::draw(QPainter * painter)
 {
-    painter->drawRect(x,y,l,w);
+    painter->drawRect(x+moveX,y+moveY,l,w);
 }
 
 void Rectangle::moveLocation(int mX, int mY)
 {
     x+=mX;
     y+=mY;
+}
+void Rectangle::onMove(int mx, int my)
+{
+    moveX = mx;
+    moveY = my;
 }

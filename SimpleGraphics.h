@@ -15,6 +15,7 @@ public:
     bool select(int x, int y);
     void draw(QPainter * painter);
     void moveLocation(int x, int y);
+    void onMove(int x, int y);
 private:
     Shape * s;
 };

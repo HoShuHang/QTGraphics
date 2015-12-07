@@ -17,6 +17,7 @@ public:
     bool select(int x, int y);
     void draw(QPainter * painter);
     void moveLocation(int mX, int mY);
+    void onMove(int mx, int my);
     //int perimeter();
 private:
     int x, y;

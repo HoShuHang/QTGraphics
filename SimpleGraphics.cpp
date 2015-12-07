@@ -36,3 +36,7 @@ void SimpleGraphics::moveLocation(int x, int y)
     cout << "simplegraphic";
     shape()->moveLocation(x,y);
 }
+void SimpleGraphics::onMove(int x, int y)
+{
+    shape()->onMove(x, y);
+}

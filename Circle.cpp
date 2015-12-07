@@ -6,7 +6,11 @@
 const int PI=3;
 
 Circle::Circle(int center_x, int center_y, int radius)
-    :cx(center_x),cy(center_y),r(radius) {}
+    :cx(center_x),cy(center_y),r(radius)
+{
+    moveX = 0;
+    moveY = 0;
+}
 int Circle::area() {return PI*r*r;}
 Rectangle Circle::getBoundingBox() {return Rectangle(cx-r,cy-r,2*r,2*r);}
 std::string Circle::describe() {
@@ -32,7 +36,7 @@ bool Circle::select(int x, int y)
 
 void Circle::draw(QPainter * painter)
 {
-    QPoint p(cx, cy);
+    QPoint p(cx+moveX, cy+moveY);
     painter->drawEllipse(p, r, r);
 }
 
@@ -47,4 +51,9 @@ void Circle::moveLocation(int mX, int mY)
     cy+=mY;
     cout << "cx = " << cx << endl;
     cout << "cy = " << cy << endl;
+}
+void Circle::onMove(int mx, int my)
+{
+    moveX = mx;
+    moveY = my;
 }

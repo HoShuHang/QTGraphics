@@ -16,6 +16,9 @@ public:
     virtual bool select(int x, int y)=0;
     virtual void draw(QPainter * painter)=0;
     virtual void moveLocation(int mX, int mY)=0;
+    virtual void onMove(int mx, int my)=0;
+protected:
+    int moveX, moveY;
 };
 
 

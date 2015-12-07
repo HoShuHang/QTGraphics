@@ -22,6 +22,7 @@ public:
     void setSelected(bool s);
     virtual void draw(QPainter * painter)=0;
     virtual void moveLocation(int x, int y)=0;
+    virtual void onMove(int x, int y)=0;
 protected:
     Graphics();
     bool selected = false;

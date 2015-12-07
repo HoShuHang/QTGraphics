@@ -5,7 +5,11 @@
 #include "RectanglePainter.h"
 
 Square::Square(int ll_x, int ll_y, int length)
-    :x(ll_x),y(ll_y),l(length) {}
+    :x(ll_x),y(ll_y),l(length)
+{
+    moveX = 0;
+    moveY = 0;
+}
 int Square::area()
 {
     return l*l;
@@ -37,11 +41,16 @@ bool Square::select(int x, int y)
 
 void Square::draw(QPainter * painter)
 {
-    painter->drawRect(x, y, l, l);
+    painter->drawRect(x+moveX, y+moveY, l, l);
 }
 
 void Square::moveLocation(int mX, int mY)
 {
     x += mX;
     y += mY;
+}
+void Square::onMove(int mx, int my)
+{
+    moveX = mx;
+    moveY = my;
 }

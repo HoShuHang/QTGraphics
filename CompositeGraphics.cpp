@@ -75,3 +75,11 @@ void CompositeGraphics::moveLocation(int x, int y)
         (*i)->moveLocation(x,y);
     }
 }
+void CompositeGraphics::onMove(int x, int y)
+{
+    getBoundingBox().onMove(x, y);
+    std::vector<Graphics *>::iterator i;
+    for (i=g_obj.begin(); i != g_obj.end(); ++i){
+        (*i)->onMove(x, y);
+    }
+}
