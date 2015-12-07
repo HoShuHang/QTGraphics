@@ -42,15 +42,8 @@ void Circle::draw(QPainter * painter)
 
 void Circle::moveLocation(int mX, int mY)
 {
-    cout << "before move" << endl;
-    cout << "mX = " << mX << endl;
-    cout << "mY = " << mY << endl;
-    cout << "cx = " << cx << endl;
-    cout << "cy = " << cy << endl;
     cx+=mX;
     cy+=mY;
-    cout << "cx = " << cx << endl;
-    cout << "cy = " << cy << endl;
 }
 void Circle::onMove(int mx, int my)
 {

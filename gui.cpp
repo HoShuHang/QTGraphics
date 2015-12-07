@@ -17,6 +17,7 @@ gui::gui()
     iniY = 0;
     moveX = 0;
     moveY = 0;
+    moveAtIndex = 0;
 }
 
 gui::~gui()
@@ -227,7 +228,10 @@ void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
     moveY = (event->scenePos().y() - iniY);
     cout << "moveX = " << moveX << endl;
     cout << "moveY = " << moveY << endl;
-    model->getGraphics()->at(0)->onMove(moveX, moveY);
+    if(moveAtIndex != -1)
+    {
+        model->getGraphics()->at(moveAtIndex)->onMove(moveX, moveY);
+    }
     Update();
 }
 
@@ -235,14 +239,17 @@ void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
 {
     iniX = event->scenePos().x();
     iniY = event->scenePos().y();
-    cout << "iniX = " << iniX << endl;
-    cout << "iniY = " << iniY << endl;
+    moveAtIndex = model->select(iniX, iniY);
+    cout << "moveAtIndex = " << moveAtIndex << endl;
 }
 
 void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
 {
-    model->getGraphics()->at(0)->onMove(0, 0);
-    cout << "mouseReleaseEvent" << endl;
-    model->moveGraphic(model->getGraphics()->at(0), moveX, moveY);
-    Update();
+    if(moveAtIndex != -1)
+    {
+        Graphics *g = model->getGraphics()->at(moveAtIndex);
+        g->onMove(0, 0);
+        model->moveGraphic(g, moveX, moveY);
+        Update();
+    }
 }

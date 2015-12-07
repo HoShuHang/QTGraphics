@@ -65,6 +65,7 @@ private:
     void UpdateScene();
     void UpdateButtonEnable();
     int iniX, iniY, moveX, moveY;
+    int moveAtIndex;
 private slots:
     void LoadFileDialog();
     void MessageDialog();

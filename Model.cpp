@@ -62,18 +62,14 @@ void Model::deleteGraphics()
     }
 }
 
-void Model::select(int x, int y)
+int Model::select(int x, int y)
 {
-    std::vector<Graphics *>::iterator i;
-    for(i = graphics->begin(); i != graphics->end(); i++)
+    for(int i = graphics->size() - 1; i>=0; i--)
     {
-        (*i)->setSelected(false);
+        if(graphics->at(i)->select(x,y))
+            return i;
     }
-    for(i = graphics->end(); i != graphics->begin(); i--)
-    {
-        if((*i)->select(x,y))
-            break;
-    }
+    return -1;
 }
 
 bool Model::isGraphicsSelect()
