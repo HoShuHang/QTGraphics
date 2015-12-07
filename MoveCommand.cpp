@@ -7,7 +7,6 @@ MoveCommand::MoveCommand(Graphics *g, int mX, int mY)
     moveX = mX;
     moveY = mY;
     graphic = g;
-    cout << "move" << endl;
 }
 
 void MoveCommand::Excute()

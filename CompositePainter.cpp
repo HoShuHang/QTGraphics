@@ -19,6 +19,19 @@ void CompositePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem 
 {
     PaintVisitor pv(painter);
     graphics->accept(pv);
+    cout << "isselected = " << graphics->isSelected() << endl;
+    if(graphics->isSelected())
+    {
+        int radius = 2;
+        QPoint ll(posx+graphics->getOnMoveX(), posy+graphics->getOnMoveY());
+        QPoint lr(posx+graphics->getOnMoveX(), posy+heigh+graphics->getOnMoveY());
+        QPoint ul(posx+width+graphics->getOnMoveX(), posy+graphics->getOnMoveY());
+        QPoint ur(posx+width+graphics->getOnMoveX(), posy+heigh+graphics->getOnMoveY());
+        painter->drawEllipse(ll, radius, radius);
+        painter->drawEllipse(lr, radius, radius);
+        painter->drawEllipse(ul, radius, radius);
+        painter->drawEllipse(ur, radius, radius);
+    }
 }
 
 void CompositePainter::SetGUI(gui *g)

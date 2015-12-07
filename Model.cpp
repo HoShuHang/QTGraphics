@@ -51,15 +51,16 @@ bool Model::isRedoEnable()
 
 void Model::deleteGraphics()
 {
+    vector<int> indexs;
     for(int i = graphics->size()-1; i > 0; i--)
     {
         Graphics *g = graphics->at(i);
         if(g->isSelected())
         {
-            cm->deleteCommand(graphics, i);
-            break;
+            indexs.push_back(i);
         }
     }
+    cm->deleteCommand(graphics, indexs);
 }
 
 int Model::select(int x, int y)

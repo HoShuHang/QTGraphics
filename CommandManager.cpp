@@ -31,7 +31,7 @@ void CommandManager::createCommand(vector<Graphics *> *g_vector, Graphics *g)
     excute(c);
 }
 
-void CommandManager::deleteCommand(vector<Graphics *> *g_vector, int i)
+void CommandManager::deleteCommand(vector<Graphics *> *g_vector, vector<int> i)
 {
     Command *c = new DeleteCommand(g_vector, i);
     excute(c);

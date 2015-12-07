@@ -222,25 +222,29 @@ void gui::UpdateButtonEnable()
     deleteGraphics->setEnabled(model->isGraphicsSelect());
 }
 
-void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
-{
-    moveX = (event->scenePos().x() - iniX);
-    moveY = (event->scenePos().y() - iniY);
-    cout << "moveX = " << moveX << endl;
-    cout << "moveY = " << moveY << endl;
-    if(moveAtIndex != -1)
-    {
-        model->getGraphics()->at(moveAtIndex)->onMove(moveX, moveY);
-    }
-    Update();
-}
-
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
 {
     iniX = event->scenePos().x();
     iniY = event->scenePos().y();
     moveAtIndex = model->select(iniX, iniY);
     cout << "moveAtIndex = " << moveAtIndex << endl;
+//    if(moveAtIndex != -1)
+//        model->getGraphics()->at(moveAtIndex)->setSelected(true);
+    moveX = 0;
+    moveY=0;
+    Update();
+}
+
+void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
+{
+    moveX = (event->scenePos().x() - iniX);
+    moveY = (event->scenePos().y() - iniY);
+    if(moveAtIndex != -1)
+    {
+        Graphics *g = model->getGraphics()->at(moveAtIndex);
+        g->onMove(moveX, moveY);
+    }
+    Update();
 }
 
 void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
@@ -248,8 +252,18 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
     if(moveAtIndex != -1)
     {
         Graphics *g = model->getGraphics()->at(moveAtIndex);
-        g->onMove(0, 0);
-        model->moveGraphic(g, moveX, moveY);
+        if(abs(moveX) > 1 || abs(moveY) > 1)
+        {
+            g->onMove(0, 0);
+            g->setSelected(true);
+            model->moveGraphic(g, moveX, moveY);
+        }
+        else
+        {
+            cout << "b g->isSelected() = " << g->isSelected() << endl;
+            g->setSelected(!g->isSelected());
+            cout << "a g->isSelected() = " << g->isSelected() << endl;
+        }
         Update();
     }
 }

@@ -9,13 +9,14 @@ using namespace std;
 class DeleteCommand : public Command
 {
 public:
-    DeleteCommand(vector<Graphics *> *g_vector, int i);
+    DeleteCommand(vector<Graphics *> *g_vector, vector<int> i);
     void Excute();
     void UnExcute();
 private:
     vector<Graphics *> *graphics;
     Graphics *graphic;
-    int index;
+    vector<int> indexs;
+    vector<Graphics *> *g_obj;
 };
 
 #endif // DELETECOMMAND_H_INCLUDED

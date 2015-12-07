@@ -22,8 +22,10 @@ QGraphicsItem* SimpleGraphics::createPainter()
 }
 bool SimpleGraphics::select(int x, int y)
 {
-    selected = shape()->select(x,y);
-    return selected;
+    bool s = shape()->select(x,y);
+//    if(s)
+//        selected = !selected;
+    return s;
 }
 
 void SimpleGraphics::draw(QPainter * painter)
@@ -33,10 +35,20 @@ void SimpleGraphics::draw(QPainter * painter)
 
 void SimpleGraphics::moveLocation(int x, int y)
 {
-    cout << "simplegraphic";
     shape()->moveLocation(x,y);
 }
+
 void SimpleGraphics::onMove(int x, int y)
 {
     shape()->onMove(x, y);
+}
+
+int SimpleGraphics::getOnMoveX()
+{
+    return shape()->getOnMoveX();
+}
+
+int SimpleGraphics::getOnMoveY()
+{
+    return shape()->getOnMoveY();
 }

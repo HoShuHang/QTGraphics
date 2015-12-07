@@ -59,8 +59,10 @@ QGraphicsItem* CompositeGraphics::createPainter()
 
 bool CompositeGraphics::select(int x, int y)
 {
-    selected = getBoundingBox().select(x, y);
-    return selected;
+    bool s = getBoundingBox().select(x,y);
+//    if(s)
+//        selected = selected ? false : true;
+    return s;
 }
 
 void CompositeGraphics::draw(QPainter * painter)
@@ -82,4 +84,14 @@ void CompositeGraphics::onMove(int x, int y)
     for (i=g_obj.begin(); i != g_obj.end(); ++i){
         (*i)->onMove(x, y);
     }
+}
+
+int CompositeGraphics::getOnMoveX()
+{
+    return getBoundingBox().getOnMoveX();
+}
+
+int CompositeGraphics::getOnMoveY()
+{
+    return getBoundingBox().getOnMoveY();
 }

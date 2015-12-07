@@ -29,6 +29,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsSceneDragDropEvent>
 #include "GraphicsScene.h"
+#include <cmath>
 
 using namespace std;
 

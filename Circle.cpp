@@ -29,6 +29,7 @@ QGraphicsItem* Circle::createPainter(QWidget *widget, bool isComposite)
 bool Circle::select(int x, int y)
 {
     int dis = sqrt(pow(x - cx, 2) + pow(y - cy, 2));
+    cout << "dis = " << dis << endl;
     if(dis <= r)
         return true;
     return false;

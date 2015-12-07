@@ -17,6 +17,8 @@ public:
     virtual void draw(QPainter * painter)=0;
     virtual void moveLocation(int mX, int mY)=0;
     virtual void onMove(int mx, int my)=0;
+    int getOnMoveX(){return moveX;};
+    int getOnMoveY(){return moveY;};
 protected:
     int moveX, moveY;
 };
