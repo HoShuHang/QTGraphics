@@ -53,7 +53,7 @@ int SimpleGraphics::getOnMoveY()
     return shape()->getOnMoveY();
 }
 
-std::vector<Graphics *> getGraphics()
+bool SimpleGraphics::isComposite()
 {
-
+    return false;
 }

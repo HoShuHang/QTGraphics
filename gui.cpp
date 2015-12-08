@@ -231,8 +231,8 @@ void gui::UpdateButtonEnable()
     undo->setEnabled(model->isUndoEnable());
     redo->setEnabled(model->isRedoEnable());
     deleteGraphics->setEnabled(model->isGraphicsSelect());
-    compose->setEnabled(model->isGraphicsSelect());
-    decompose->setEnabled(model->isGraphicsSelect());
+    compose->setEnabled(model->isComposeEnable());
+    decompose->setEnabled(model->isDecomposeEnable());
 }
 
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )

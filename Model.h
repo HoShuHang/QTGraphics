@@ -31,9 +31,12 @@ public:
     void decomposeGraphic();
     int select(int x, int y);
     bool isGraphicsSelect();
+    bool isComposeEnable();
+    bool isDecomposeEnable();
 private:
     vector<Graphics *> *graphics;
     CommandManager *cm;
+    vector<int> getSelects();
 };
 
 #endif // MODEL_H_INCLUDED

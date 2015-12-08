@@ -19,6 +19,7 @@ public:
     int getOnMoveX();
     int getOnMoveY();
     std::vector<Graphics *> getGraphics();
+    bool isComposite();
 private:
     std::vector<Graphics *> g_obj;
     int moveX, moveY;

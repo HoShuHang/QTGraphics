@@ -116,3 +116,28 @@ void Model::decomposeGraphic()
     }
     cm->decomposeCommand(graphics, g);
 }
+
+bool Model::isComposeEnable()
+{
+    return getSelects().size() >= 2;
+}
+
+bool Model::isDecomposeEnable()
+{
+    vector<int> indexs = getSelects();
+    return indexs.size() == 1 && graphics->at(indexs.back())->isComposite();
+}
+
+vector<int> Model::getSelects()
+{
+    vector<int> indexs;
+    for(int i = 0; i < graphics->size(); i++)
+    {
+        Graphics *g = graphics->at(i);
+        if(g->isSelected())
+        {
+            indexs.push_back(i);
+        }
+    }
+    return indexs;
+}

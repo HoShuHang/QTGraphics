@@ -109,3 +109,8 @@ std::vector<Graphics *> CompositeGraphics::getGraphics()
 {
     return g_obj;
 }
+
+bool CompositeGraphics::isComposite()
+{
+    return true;
+}

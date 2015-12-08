@@ -26,6 +26,7 @@ public:
     virtual int getOnMoveX()=0;
     virtual int getOnMoveY()=0;
     virtual std::vector<Graphics *> getGraphics();
+    virtual bool isComposite()=0;
 protected:
     Graphics();
     bool selected = false;
