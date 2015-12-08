@@ -17,6 +17,7 @@ private:
     Graphics *graphic;
     vector<int> indexs;
     vector<Graphics *> *g_obj;
+    int count;
 };
 
 #endif // DELETECOMMAND_H_INCLUDED

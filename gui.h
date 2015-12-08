@@ -74,6 +74,7 @@ private slots:
     void CreateSquare();
     void CreateRectangle();
     void CreateCircle();
+    void DeleteGraphics();
     void Undo();
     void Redo();
 };

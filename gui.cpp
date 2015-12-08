@@ -54,6 +54,7 @@ void gui::SetActionConnection()
     connect(createSquare, SIGNAL(triggered()), this, SLOT(CreateSquare()));
     connect(undo, SIGNAL(triggered()), this, SLOT(Undo()));
     connect(redo, SIGNAL(triggered()), this, SLOT(Redo()));
+    connect(deleteGraphics, SIGNAL(triggered()), this, SLOT(DeleteGraphics()));
 }
 
 void gui::CreateActions()
@@ -266,4 +267,10 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
         }
         Update();
     }
+}
+
+void gui::DeleteGraphics()
+{
+    model->deleteGraphics();
+    Update();
 }

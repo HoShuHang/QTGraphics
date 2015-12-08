@@ -52,7 +52,7 @@ bool Model::isRedoEnable()
 void Model::deleteGraphics()
 {
     vector<int> indexs;
-    for(int i = graphics->size()-1; i > 0; i--)
+    for(int i = 0; i < graphics->size(); i++)
     {
         Graphics *g = graphics->at(i);
         if(g->isSelected())
@@ -75,7 +75,7 @@ int Model::select(int x, int y)
 
 bool Model::isGraphicsSelect()
 {
-    for(int i = graphics->size()-1; i > 0; i--)
+    for(int i = graphics->size()-1; i >= 0; i--)
     {
         Graphics *g = graphics->at(i);
         if(g->isSelected())
