@@ -8,7 +8,7 @@ Model::Model()
 
 void Model::createCircle()
 {
-    Graphics *g = new SimpleGraphics(new Circle(-255, -5, 50));
+    Graphics *g = new SimpleGraphics(new Circle(50, 0, 50));
     cm->createCommand(graphics, g);
 }
 
@@ -112,4 +112,23 @@ vector<int> Model::getSelects()
         }
     }
     return indexs;
+}
+
+void Model::buildGraphicFromFile(const char *path)
+{
+    GraphicsFactory gf;
+    Graphics *g = gf.buildGraphicsFromFile(path);
+    cm->createCommand(graphics, g);
+}
+
+string Model::getDescription()
+{
+    DescriptionVisitor dv;
+    std::vector<Graphics *>::iterator i;
+    for(i = graphics->begin(); i!=graphics->end(); i++)
+    {
+        (*i)->accept(dv);
+    }
+    cout << dv.getDescription() << endl;
+    return dv.getDescription();
 }

@@ -10,6 +10,8 @@
 #include "Command.h"
 #include "CreateCommand.h"
 #include "CommandManager.h"
+#include "GraphicsFactory.h"
+#include "DescriptionVisitor.h"
 
 using namespace std;
 
@@ -33,6 +35,8 @@ public:
     bool isGraphicsSelect();
     bool isComposeEnable();
     bool isDecomposeEnable();
+    void buildGraphicFromFile(const char *path);
+    string getDescription();
 private:
     vector<Graphics *> *graphics;
     CommandManager *cm;

@@ -138,8 +138,6 @@ void gui::MessageDialog()
 
 void gui::LoadFileDialog()
 {
-    GraphicsFactory gf;
-
     QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
                    "./",
                    tr("txt (*.txt)"));
@@ -147,14 +145,8 @@ void gui::LoadFileDialog()
     {
         QByteArray ba = file.toLatin1();
         const char *c_str = ba.data();
-        currentGraphics = gf.buildGraphicsFromFile(c_str);
-
-        qDebug() << "Working on file " << file;
-
-        scene->addItem(currentGraphics->createPainter());
-
-        scene->update();
-        saveFile->setEnabled(true);
+        model->buildGraphicFromFile(c_str);
+        Update();
     }
 }
 
@@ -172,10 +164,6 @@ void gui::UpdateScene()
 
 void gui::SaveFileDialog()
 {
-    DescriptionVisitor dv;
-    currentGraphics->accept(dv);
-    cout << "description = " << dv.getDescription() << endl;
-
     QString file = QFileDialog::getSaveFileName(this, tr("Save File"),
                    "./",
                    tr("txt (*.txt)"));
@@ -185,7 +173,7 @@ void gui::SaveFileDialog()
     ofstream myfile (c_str);
     if (myfile.is_open())
     {
-        myfile << dv.getDescription();
+        myfile << model->getDescription();
         myfile.close();
     }
 }
@@ -233,6 +221,7 @@ void gui::UpdateButtonEnable()
     deleteGraphics->setEnabled(model->isGraphicsSelect());
     compose->setEnabled(model->isComposeEnable());
     decompose->setEnabled(model->isDecomposeEnable());
+    saveFile->setEnabled(!model->getGraphics()->empty());
 }
 
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
@@ -240,9 +229,6 @@ void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
     iniX = event->scenePos().x();
     iniY = event->scenePos().y();
     moveAtIndex = model->select(iniX, iniY);
-    cout << "moveAtIndex = " << moveAtIndex << endl;
-//    if(moveAtIndex != -1)
-//        model->getGraphics()->at(moveAtIndex)->setSelected(true);
     moveX = 0;
     moveY=0;
     Update();
@@ -273,9 +259,7 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
         }
         else
         {
-            cout << "b g->isSelected() = " << g->isSelected() << endl;
             g->setSelected(!g->isSelected());
-            cout << "a g->isSelected() = " << g->isSelected() << endl;
         }
         Update();
     }
