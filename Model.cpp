@@ -51,15 +51,7 @@ bool Model::isRedoEnable()
 
 void Model::deleteGraphics()
 {
-    vector<int> indexs;
-    for(int i = 0; i < graphics->size(); i++)
-    {
-        Graphics *g = graphics->at(i);
-        if(g->isSelected())
-        {
-            indexs.push_back(i);
-        }
-    }
+    vector<int> indexs = getSelects();
     cm->deleteCommand(graphics, indexs);
 }
 
@@ -75,15 +67,8 @@ int Model::select(int x, int y)
 
 bool Model::isGraphicsSelect()
 {
-    for(int i = graphics->size()-1; i >= 0; i--)
-    {
-        Graphics *g = graphics->at(i);
-        if(g->isSelected())
-        {
-            return true;
-        }
-    }
-    return false;
+    vector<int> indexs = getSelects();
+    return !indexs.empty();
 }
 
 void Model::moveGraphic(Graphics *g, int mX, int mY)
@@ -93,27 +78,14 @@ void Model::moveGraphic(Graphics *g, int mX, int mY)
 
 void Model::composeGraphic()
 {
-    vector<int> indexs;
-    for(int i = 0; i < graphics->size(); i++)
-    {
-        Graphics *g = graphics->at(i);
-        if(g->isSelected())
-        {
-            indexs.push_back(i);
-        }
-    }
-    cout << "indexs.size() = " << indexs.size() << endl;
+    vector<int> indexs = getSelects();
     cm->composeCommand(graphics, indexs);
 }
 
 void Model::decomposeGraphic()
 {
-    vector<int> indexs;
-    Graphics *g;
-    for(int i = 0; i < graphics->size(); i++)
-    {
-        g = graphics->at(i);
-    }
+    vector<int> indexs = getSelects();
+    Graphics *g = graphics->at(indexs.back());
     cm->decomposeCommand(graphics, g);
 }
 
