@@ -20,6 +20,7 @@ public:
     int getOnMoveY();
 private:
     std::vector<Graphics *> g_obj;
+    int moveX, moveY;
 };
 
 #endif // COMPOSITEGRAPHICS_H_INCLUDED

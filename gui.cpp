@@ -55,6 +55,7 @@ void gui::SetActionConnection()
     connect(undo, SIGNAL(triggered()), this, SLOT(Undo()));
     connect(redo, SIGNAL(triggered()), this, SLOT(Redo()));
     connect(deleteGraphics, SIGNAL(triggered()), this, SLOT(DeleteGraphics()));
+    connect(compose, SIGNAL(triggered()), this, SLOT(Compose()));
 }
 
 void gui::CreateActions()
@@ -67,6 +68,8 @@ void gui::CreateActions()
     QPixmap undoPic("pic/undo.png");
     QPixmap redoPic("pic/redo.png");
     QPixmap deletePic("pic/delete.png");
+    QPixmap composePic("pic/compose.png");
+    QPixmap decomposePic("pic/decompose.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
@@ -80,6 +83,10 @@ void gui::CreateActions()
     redo->setEnabled(false);
     deleteGraphics = new QAction(deletePic, "delete", widget);
     deleteGraphics->setEnabled(false);
+    compose = new QAction(composePic, "compose", widget);
+    compose->setEnabled(false);
+    decompose = new QAction(decomposePic, "decompose", widget);
+    decompose->setEnabled(false);
 }
 
 void gui::CreateMenus()
@@ -107,6 +114,8 @@ void gui::CreateTools()
     fileToolBar->addAction(undo);
     fileToolBar->addAction(redo);
     fileToolBar->addAction(deleteGraphics);
+    fileToolBar->addAction(compose);
+    fileToolBar->addAction(decompose);
 }
 
 void gui::Display()
@@ -221,6 +230,7 @@ void gui::UpdateButtonEnable()
     undo->setEnabled(model->isUndoEnable());
     redo->setEnabled(model->isRedoEnable());
     deleteGraphics->setEnabled(model->isGraphicsSelect());
+    compose->setEnabled(model->isGraphicsSelect());
 }
 
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
@@ -273,4 +283,15 @@ void gui::DeleteGraphics()
 {
     model->deleteGraphics();
     Update();
+}
+
+void gui::Compose()
+{
+    model->composeGraphic();
+    Update();
+}
+
+void gui::DeCompose()
+{
+
 }

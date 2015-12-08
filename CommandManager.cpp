@@ -43,6 +43,12 @@ void CommandManager::moveCommand(Graphics *g, int mX, int mY)
     excute(c);
 }
 
+void CommandManager::composeCommand(vector<Graphics *> *g_vector, vector<int> i)
+{
+    Command *c = new ComposeCommand(g_vector, i);
+    excute(c);
+}
+
 void CommandManager::excute(Command *c)
 {
     undo.push(c);

@@ -1,34 +1,36 @@
-#include "DeleteCommand.h"
-
+#include "ComposeCommand.h"
 #include <iostream>
-using namespace std;
 
-DeleteCommand::DeleteCommand(vector<Graphics *> *g_vector, vector<int> i)
+ComposeCommand::ComposeCommand(vector<Graphics *> *g, vector<int> i)
 {
-    graphics = g_vector;
+    graphics = g;
     indexs = i;
     g_obj = new vector<Graphics *>;
+    compositeGraphic = new CompositeGraphics();
     for(int i = 0; i < indexs.size(); i ++)
     {
-        g_obj->push_back(graphics->at(i));
+        Graphics *g = graphics->at(i);
+        g_obj->push_back(g);
+        compositeGraphic->add(g);
     }
-    count = 0;
+    cout << "constructor" << endl;
 }
 
-void DeleteCommand::Excute()
+void ComposeCommand::Excute()
 {
     for(int i = 0; i < g_obj->size(); i++)
     {
         graphics->erase((remove(graphics->begin(), graphics->end(), g_obj->at(i))), graphics->end());
     }
+    graphics->push_back(compositeGraphic);
 }
 
-void DeleteCommand::UnExcute()
+void ComposeCommand::UnExcute()
 {
+    graphics->erase((remove(graphics->begin(), graphics->end(), compositeGraphic)), graphics->end());
     for(int i = 0; i < indexs.size(); i ++)
     {
         Graphics *graphic = g_obj->at(i);
-        cout << "i = " << i << endl;
         if(graphics->size() == 0)
             graphics->push_back(graphic);
         else

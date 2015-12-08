@@ -27,6 +27,7 @@ public:
     bool isRedoEnable();
     void deleteGraphics();
     void moveGraphic(Graphics *g, int mX, int mY);
+    void composeGraphic();
     int select(int x, int y);
     bool isGraphicsSelect();
 private:

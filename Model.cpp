@@ -90,3 +90,18 @@ void Model::moveGraphic(Graphics *g, int mX, int mY)
 {
     cm->moveCommand(g, mX, mY);
 }
+
+void Model::composeGraphic()
+{
+    vector<int> indexs;
+    for(int i = 0; i < graphics->size(); i++)
+    {
+        Graphics *g = graphics->at(i);
+        if(g->isSelected())
+        {
+            indexs.push_back(i);
+        }
+    }
+    cout << "indexs.size() = " << indexs.size() << endl;
+    cm->composeCommand(graphics, indexs);
+}

@@ -57,7 +57,7 @@ public:
 private:
     QAction *aboutDeveloper, *loadFile, *saveFile;
     QAction *createRectangle, *createSquare, *createCircle;
-    QAction *undo, *redo, *deleteGraphics;
+    QAction *undo, *redo, *deleteGraphics, *compose, *decompose;
     QMenu *about, *file, *createShape;
 //    PaintVisitor pv;
     Graphics *currentGraphics;
@@ -77,6 +77,8 @@ private slots:
     void DeleteGraphics();
     void Undo();
     void Redo();
+    void Compose();
+    void DeCompose();
 };
 
 #endif // GUI_H

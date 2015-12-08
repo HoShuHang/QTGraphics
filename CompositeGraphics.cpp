@@ -9,7 +9,11 @@
 #include "DescriptionVisitor.h"
 #include "CompositePainter.h"
 
-CompositeGraphics::CompositeGraphics() {}
+CompositeGraphics::CompositeGraphics()
+{
+    moveX = 0;
+    moveY = 0;
+}
 void CompositeGraphics::add(Graphics *g)
 {
     g_obj.push_back(g);
@@ -45,7 +49,8 @@ void CompositeGraphics::accept(GraphicsVisitor & av)
     av.visitCompositeGraphics(this);
     av.enter();
     std::vector<Graphics *>::iterator i;
-    for (i=g_obj.begin(); i != g_obj.end(); ++i){
+    for (i=g_obj.begin(); i != g_obj.end(); ++i)
+    {
         (*i)->accept(av);
     }
     av.leave();
@@ -67,13 +72,14 @@ bool CompositeGraphics::select(int x, int y)
 
 void CompositeGraphics::draw(QPainter * painter)
 {
-    painter->drawRect(getBoundingBox().llx(), getBoundingBox().lly(), getBoundingBox().urx() - getBoundingBox().llx(), getBoundingBox().ury() - getBoundingBox().lly());
+    painter->drawRect(getBoundingBox().llx()+moveX, getBoundingBox().lly()+moveY, getBoundingBox().urx() - getBoundingBox().llx(), getBoundingBox().ury() - getBoundingBox().lly());
 }
 void CompositeGraphics::moveLocation(int x, int y)
 {
     getBoundingBox().moveLocation(x,y);
     std::vector<Graphics *>::iterator i;
-    for (i=g_obj.begin(); i != g_obj.end(); ++i){
+    for (i=g_obj.begin(); i != g_obj.end(); ++i)
+    {
         (*i)->moveLocation(x,y);
     }
 }
@@ -81,17 +87,20 @@ void CompositeGraphics::onMove(int x, int y)
 {
     getBoundingBox().onMove(x, y);
     std::vector<Graphics *>::iterator i;
-    for (i=g_obj.begin(); i != g_obj.end(); ++i){
+    moveX = x;
+    moveY = y;
+    for (i=g_obj.begin(); i != g_obj.end(); ++i)
+    {
         (*i)->onMove(x, y);
     }
 }
 
 int CompositeGraphics::getOnMoveX()
 {
-    return getBoundingBox().getOnMoveX();
+    return moveX;
 }
 
 int CompositeGraphics::getOnMoveY()
 {
-    return getBoundingBox().getOnMoveY();
+    return moveY;
 }
