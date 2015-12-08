@@ -25,6 +25,7 @@ public:
     virtual void onMove(int x, int y)=0;
     virtual int getOnMoveX()=0;
     virtual int getOnMoveY()=0;
+    virtual std::vector<Graphics *> getGraphics();
 protected:
     Graphics();
     bool selected = false;

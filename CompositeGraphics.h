@@ -18,6 +18,7 @@ public:
     void onMove(int x, int y);
     int getOnMoveX();
     int getOnMoveY();
+    std::vector<Graphics *> getGraphics();
 private:
     std::vector<Graphics *> g_obj;
     int moveX, moveY;

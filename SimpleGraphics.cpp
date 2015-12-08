@@ -52,3 +52,8 @@ int SimpleGraphics::getOnMoveY()
 {
     return shape()->getOnMoveY();
 }
+
+std::vector<Graphics *> getGraphics()
+{
+
+}

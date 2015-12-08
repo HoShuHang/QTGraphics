@@ -78,7 +78,7 @@ private slots:
     void Undo();
     void Redo();
     void Compose();
-    void DeCompose();
+    void Decompose();
 };
 
 #endif // GUI_H

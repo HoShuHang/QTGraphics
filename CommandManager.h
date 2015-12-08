@@ -9,6 +9,7 @@
 #include "DeleteCommand.h"
 #include "MoveCommand.h"
 #include "ComposeCommand.h"
+#include "DecomposeCommand.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ public:
     void deleteCommand(vector<Graphics *> *g_vector, vector<int> i);
     void moveCommand(Graphics *g, int mX, int mY);
     void composeCommand(vector<Graphics *> *g_vector, vector<int> i);
+    void decomposeCommand(vector<Graphics *> *g_vector, Graphics *g);
     void excute(Command *c);
     bool isUndoEmpty();
     bool isRedoEmpty();

@@ -17,3 +17,7 @@ void Graphics::setSelected(bool s)
 {
     selected = s;
 }
+std::vector<Graphics *> Graphics::getGraphics()
+{
+    throw std::string("Cannot add getGraphics");
+}

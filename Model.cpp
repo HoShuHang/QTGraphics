@@ -105,3 +105,14 @@ void Model::composeGraphic()
     cout << "indexs.size() = " << indexs.size() << endl;
     cm->composeCommand(graphics, indexs);
 }
+
+void Model::decomposeGraphic()
+{
+    vector<int> indexs;
+    Graphics *g;
+    for(int i = 0; i < graphics->size(); i++)
+    {
+        g = graphics->at(i);
+    }
+    cm->decomposeCommand(graphics, g);
+}

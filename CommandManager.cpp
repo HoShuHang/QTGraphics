@@ -49,6 +49,12 @@ void CommandManager::composeCommand(vector<Graphics *> *g_vector, vector<int> i)
     excute(c);
 }
 
+void CommandManager::decomposeCommand(vector<Graphics *> *g_vector, Graphics *g)
+{
+    Command *c = new DecomposeCommand(g_vector, g);
+    excute(c);
+}
+
 void CommandManager::excute(Command *c)
 {
     undo.push(c);

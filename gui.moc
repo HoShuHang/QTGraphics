@@ -41,13 +41,13 @@ QT_MOC_LITERAL(8, 91, 14), // "DeleteGraphics"
 QT_MOC_LITERAL(9, 106, 4), // "Undo"
 QT_MOC_LITERAL(10, 111, 4), // "Redo"
 QT_MOC_LITERAL(11, 116, 7), // "Compose"
-QT_MOC_LITERAL(12, 124, 9) // "DeCompose"
+QT_MOC_LITERAL(12, 124, 9) // "Decompose"
 
     },
     "gui\0LoadFileDialog\0\0MessageDialog\0"
     "SaveFileDialog\0CreateSquare\0CreateRectangle\0"
     "CreateCircle\0DeleteGraphics\0Undo\0Redo\0"
-    "Compose\0DeCompose"
+    "Compose\0Decompose"
 };
 #undef QT_MOC_LITERAL
 
@@ -109,7 +109,7 @@ void gui::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         case 7: _t->Undo(); break;
         case 8: _t->Redo(); break;
         case 9: _t->Compose(); break;
-        case 10: _t->DeCompose(); break;
+        case 10: _t->Decompose(); break;
         default: ;
         }
     }

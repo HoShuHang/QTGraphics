@@ -56,6 +56,7 @@ void gui::SetActionConnection()
     connect(redo, SIGNAL(triggered()), this, SLOT(Redo()));
     connect(deleteGraphics, SIGNAL(triggered()), this, SLOT(DeleteGraphics()));
     connect(compose, SIGNAL(triggered()), this, SLOT(Compose()));
+    connect(decompose, SIGNAL(triggered()), this, SLOT(Decompose()));
 }
 
 void gui::CreateActions()
@@ -231,6 +232,7 @@ void gui::UpdateButtonEnable()
     redo->setEnabled(model->isRedoEnable());
     deleteGraphics->setEnabled(model->isGraphicsSelect());
     compose->setEnabled(model->isGraphicsSelect());
+    decompose->setEnabled(model->isGraphicsSelect());
 }
 
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
@@ -291,7 +293,8 @@ void gui::Compose()
     Update();
 }
 
-void gui::DeCompose()
+void gui::Decompose()
 {
-
+    model->decomposeGraphic();
+    Update();
 }

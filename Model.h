@@ -28,6 +28,7 @@ public:
     void deleteGraphics();
     void moveGraphic(Graphics *g, int mX, int mY);
     void composeGraphic();
+    void decomposeGraphic();
     int select(int x, int y);
     bool isGraphicsSelect();
 private:

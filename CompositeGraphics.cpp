@@ -104,3 +104,8 @@ int CompositeGraphics::getOnMoveY()
 {
     return moveY;
 }
+
+std::vector<Graphics *> CompositeGraphics::getGraphics()
+{
+    return g_obj;
+}
