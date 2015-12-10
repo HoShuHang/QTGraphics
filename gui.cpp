@@ -176,6 +176,7 @@ void gui::SaveFileDialog()
         myfile << model->getDescription();
         myfile.close();
     }
+    Update();
 }
 
 void gui::CreateCircle()

@@ -27,6 +27,7 @@ public:
     void excute(Command *c);
     bool isUndoEmpty();
     bool isRedoEmpty();
+    void cleanUndoRedo();
 private:
     stack<Command *> undo;
     stack<Command *> redo;

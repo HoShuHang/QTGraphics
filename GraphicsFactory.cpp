@@ -11,6 +11,11 @@
 #include "CompositeGraphics.h"
 #include "util.h"
 
+GraphicsFactory::GraphicsFactory()
+{
+    graphics = new vector<Graphics *>;
+}
+
 void GraphicsFactory::compose () {
     vector<Graphics *> temp;
     int level=(pda.top()).first;
@@ -55,6 +60,7 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
     if (found==pos) {
         std::string s(contents.substr(pos+2));
         std::stringstream ifs(s);
+    GraphicsFactory();
         int cx, cy, r;
         char c;
         //     cx    ,    cy    ,    r    )
@@ -92,7 +98,7 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
         throw std::string("undefined graphics");
 }
 
-Graphics * GraphicsFactory::buildGraphicsFromFile(const char * fileName) {
+vector<Graphics *> *GraphicsFactory::buildGraphicsFromFile(const char * fileName) {
     Graphics * gr = 0;
     int indent_previous, indent_actual;
     std::string contents = fileContentsAsString(fileName);
@@ -111,8 +117,18 @@ Graphics * GraphicsFactory::buildGraphicsFromFile(const char * fileName) {
     }
     if (contents.empty()) {
         while (pda.size() > 1)
-            compose();
-        gr = (pda.top()).second;
+        {
+            if(pda.top().first == 0)
+            {
+                graphics->push_back(pda.top().second);
+                pda.pop();
+            }
+            else
+            {
+                compose();
+            }
+        }
+        graphics->push_back(pda.top().second);
     }
-    return gr;
+    return graphics;
 }

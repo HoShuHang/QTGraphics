@@ -72,3 +72,10 @@ bool CommandManager::isRedoEmpty()
 {
     return !redo.empty();
 }
+void CommandManager::cleanUndoRedo()
+{
+    while(!undo.empty())
+        undo.pop();
+    while(!redo.empty())
+        redo.pop();
+}

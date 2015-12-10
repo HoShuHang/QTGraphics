@@ -19,6 +19,7 @@ void CompositePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem 
 {
     PaintVisitor pv(painter);
     graphics->accept(pv);
+
     if(graphics->isSelected())
     {
         int radius = 2;

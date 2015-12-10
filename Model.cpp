@@ -117,8 +117,12 @@ vector<int> Model::getSelects()
 void Model::buildGraphicFromFile(const char *path)
 {
     GraphicsFactory gf;
-    Graphics *g = gf.buildGraphicsFromFile(path);
-    cm->createCommand(graphics, g);
+    vector<Graphics *> *g = gf.buildGraphicsFromFile(path);
+    for(int i = 0; i < g->size(); i++)
+    {
+        graphics->push_back(g->at(i));
+    }
+//    cm->createCommand(graphics, g);
 }
 
 string Model::getDescription()
@@ -129,6 +133,6 @@ string Model::getDescription()
     {
         (*i)->accept(dv);
     }
-    cout << dv.getDescription() << endl;
+    cm->cleanUndoRedo();
     return dv.getDescription();
 }
