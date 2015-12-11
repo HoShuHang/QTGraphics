@@ -24,13 +24,6 @@ std::string Rectangle::describe()
     return oss.str();
 }
 
-QGraphicsItem* Rectangle::createPainter(QWidget *widget, bool isComposite)
-{
-    RectanglePainter* i = new RectanglePainter(x, y, w, l, widget);
-    i->SetComposite(isComposite);
-    return i;
-}
-
 bool Rectangle::select(int x, int y)
 {
     if(x >= llx() && x <= urx() && y <= ury() && y >= lly())

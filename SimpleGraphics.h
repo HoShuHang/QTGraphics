@@ -19,6 +19,7 @@ public:
     int getOnMoveX();
     int getOnMoveY();
     bool isComposite();
+    void select(int x, int y, int moveX, int moveY);
 private:
     Shape * s;
 };

@@ -27,19 +27,8 @@ void RectanglePainter::paint(QPainter * painter, const QStyleOptionGraphicsItem 
 {
     QPen rPen(Qt::blue);
     QPen gPen(Qt::green);
-    if(isComposite)
-        painter->setPen(gPen);
-    else
-        painter->setPen(rPen);
+    QBrush background (QColor::fromRgb(255,255,255,255), Qt::SolidPattern);
+    painter->setBackgroundMode(Qt::OpaqueMode);
+    painter->setBrush( background);
     painter->drawRect(posx, posy, width, heigh);
-}
-
-void RectanglePainter::SetComposite(bool isC)
-{
-    isComposite = isC;
-}
-
-void RectanglePainter::SetGUI(gui *g)
-{
-    guiview = g;
 }

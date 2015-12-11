@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QGraphicsSceneHoverEvent>
 #include "Graphics.h"
-#include "gui.h"
 class RectanglePainter:public QGraphicsItem
 {
 public:
@@ -20,11 +19,7 @@ public:
     qreal heigh;
     QRectF boundingRect() const;//必須實做的virtual function，但目前用不到
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
-    void SetComposite(bool isC);
-    void SetGUI(gui *g);
 private:
-    bool isComposite = false;
-    gui *guiview;
     QPointF _location, _dragStart;;
 };
 

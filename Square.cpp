@@ -25,13 +25,6 @@ std::string Square::describe()
     return oss.str();
 }
 
-QGraphicsItem* Square::createPainter(QWidget *widget, bool isComposite)
-{
-    RectanglePainter* item = new RectanglePainter(x, y, l, l, widget);
-    item->SetComposite(isComposite);
-    return item;
-}
-
 bool Square::select(int x, int y)
 {
     if(x >= this->x && x <= this->x + this->l && y <= this->y + this->l && y >= this->y)

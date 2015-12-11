@@ -229,6 +229,7 @@ void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
 {
     iniX = event->scenePos().x();
     iniY = event->scenePos().y();
+
     moveAtIndex = model->select(iniX, iniY);
     moveX = 0;
     moveY=0;
@@ -262,8 +263,19 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
         {
             g->setSelected(!g->isSelected());
         }
-        Update();
     }
+    else
+    {
+        if(moveX >= 0 && moveY >= 0)
+            model->select(iniX, iniY, iniX + moveX, iniY + moveY);
+        else if(moveX >= 0 && moveY < 0)
+            model->select(iniX, iniY + moveY, iniX + moveX, iniY - moveY);
+        else if(moveX < 0 && moveY < 0)
+            model->select(iniX + moveX, iniY + moveY, iniX - moveX, iniY - moveY);
+        else if(moveX < 0 && moveY >= 0)
+            model->select(iniX + moveX, iniY, iniX - moveX, iniY + moveY);
+    }
+    Update();
 }
 
 void gui::DeleteGraphics()

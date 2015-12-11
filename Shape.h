@@ -12,7 +12,6 @@ public:
     virtual int area() = 0;
     virtual Rectangle getBoundingBox()=0;
     virtual std::string describe() {return std::string("");};
-    virtual QGraphicsItem* createPainter(QWidget *widget, bool isComposite)=0;
     virtual bool select(int x, int y)=0;
     virtual void draw(QPainter * painter)=0;
     virtual void moveLocation(int mX, int mY)=0;

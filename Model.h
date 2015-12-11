@@ -32,6 +32,7 @@ public:
     void composeGraphic();
     void decomposeGraphic();
     int select(int x, int y);
+    void select(int x, int y, int moveX, int moveY);
     bool isGraphicsSelect();
     bool isComposeEnable();
     bool isDecomposeEnable();

@@ -136,3 +136,30 @@ string Model::getDescription()
     cm->cleanUndoRedo();
     return dv.getDescription();
 }
+
+void Model::select(int x, int y, int moveX, int moveY)
+{
+    std::vector<Graphics *>::iterator i;
+    for(i = graphics->begin(); i!=graphics->end(); i++)
+    {
+        (*i)->setSelected(false);
+    }
+    for(i = graphics->begin(); i!=graphics->end(); i++)
+    {
+        bool s = false;
+        for(int j = x; j <= moveX; j++)
+        {
+            for(int k = y; k <= moveY; k++)
+            {
+                if((*i)->select(j,k))
+                {
+                    s=true;
+                    (*i)->setSelected(true);
+                    break;
+                }
+            }
+            if(s)
+                break;
+        }
+    }
+}

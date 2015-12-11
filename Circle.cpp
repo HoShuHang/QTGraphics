@@ -19,13 +19,6 @@ std::string Circle::describe() {
     return oss.str();
 }
 
-QGraphicsItem* Circle::createPainter(QWidget *widget, bool isComposite)
-{
-    CirclePainter* item = new CirclePainter(cx, cy, r, widget);
-    item->SetComposite(isComposite);
-    return item;
-}
-
 bool Circle::select(int x, int y)
 {
     int dis = sqrt(pow(x - cx, 2) + pow(y - cy, 2));
