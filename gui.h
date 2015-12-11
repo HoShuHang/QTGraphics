@@ -59,6 +59,7 @@ private:
     QAction *createRectangle, *createSquare, *createCircle;
     QAction *undo, *redo, *deleteGraphics, *compose, *decompose;
     QMenu *about, *file, *createShape;
+    Graphics *selectRectangle;
 //    PaintVisitor pv;
     Graphics *currentGraphics;
     Model *model;

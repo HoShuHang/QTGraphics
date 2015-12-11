@@ -18,6 +18,7 @@ gui::gui()
     moveX = 0;
     moveY = 0;
     moveAtIndex = 0;
+    selectRectangle = new SimpleGraphics(new Rectangle(0,0,0,0));
 }
 
 gui::~gui()
@@ -154,6 +155,7 @@ void gui::UpdateScene()
 {
     scene->clear();
     scene->update();
+    scene->addItem(selectRectangle->createPainter());
     for(int i = 0; i < model->getGraphics()->size(); i++)
     {
         Graphics *g = model->getGraphics()->at(i);
@@ -245,11 +247,18 @@ void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
         Graphics *g = model->getGraphics()->at(moveAtIndex);
         g->onMove(moveX, moveY);
     }
+    else
+    {
+        delete selectRectangle;
+        selectRectangle = new SimpleGraphics(new Rectangle(iniX,iniY,moveX,moveY));
+    }
     Update();
 }
 
 void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
 {
+    delete selectRectangle;
+    selectRectangle = new SimpleGraphics(new Rectangle(0,0,0,0));
     if(moveAtIndex != -1)
     {
         Graphics *g = model->getGraphics()->at(moveAtIndex);
@@ -269,11 +278,11 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
         if(moveX >= 0 && moveY >= 0)
             model->select(iniX, iniY, iniX + moveX, iniY + moveY);
         else if(moveX >= 0 && moveY < 0)
-            model->select(iniX, iniY + moveY, iniX + moveX, iniY - moveY);
+            model->select(iniX, iniY + moveY, iniX + moveX, iniY);
         else if(moveX < 0 && moveY < 0)
-            model->select(iniX + moveX, iniY + moveY, iniX - moveX, iniY - moveY);
+            model->select(iniX + moveX, iniY + moveY, iniX, iniY);
         else if(moveX < 0 && moveY >= 0)
-            model->select(iniX + moveX, iniY, iniX - moveX, iniY + moveY);
+            model->select(iniX + moveX, iniY, iniX, iniY + moveY);
     }
     Update();
 }
