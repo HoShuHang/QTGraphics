@@ -18,10 +18,16 @@ public:
     void onMove(int x, int y);
     int getOnMoveX();
     int getOnMoveY();
-    std::vector<Graphics *> getGraphics();
+    std::vector<Graphics *> *getGraphics();
     bool isComposite();
+    bool selectToUpDown(int x, int y);
+    void setSelectToUpDown(bool s);
+    bool getSelectToUpDown();
+    bool getSimpleSelectToUpDown();
+    bool canUp();
+    bool canDown();
 private:
-    std::vector<Graphics *> g_obj;
+    std::vector<Graphics *> *g_obj;
     int moveX, moveY;
 };
 

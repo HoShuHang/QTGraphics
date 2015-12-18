@@ -20,6 +20,12 @@ public:
     int getOnMoveY();
     bool isComposite();
     void select(int x, int y, int moveX, int moveY);
+    bool selectToUpDown(int x, int y);
+    void setSelectToUpDown(bool s);
+    bool getSelectToUpDown();
+    bool getSimpleSelectToUpDown();
+    bool canUp();
+    bool canDown();
 private:
     Shape * s;
 };

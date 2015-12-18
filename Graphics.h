@@ -25,11 +25,18 @@ public:
     virtual void onMove(int x, int y)=0;
     virtual int getOnMoveX()=0;
     virtual int getOnMoveY()=0;
-    virtual std::vector<Graphics *> getGraphics();
+    virtual std::vector<Graphics *> *getGraphics();
     virtual bool isComposite()=0;
+    virtual void setSelectToUpDown(bool s)=0;
+    virtual bool selectToUpDown(int x, int y)=0;
+    virtual bool getSelectToUpDown()=0;
+    virtual bool getSimpleSelectToUpDown()=0;
+    virtual bool canUp()=0;
+    virtual bool canDown()=0;
 protected:
     Graphics();
     bool selected = false;
+    bool selectTUD = false;
 };
 
 #endif // GRAPHICS_H_INCLUDED

@@ -28,8 +28,24 @@ bool SimpleGraphics::select(int x, int y)
     return s;
 }
 
+bool SimpleGraphics::selectToUpDown(int x, int y)
+{
+    if(select(x,y))
+        setSelectToUpDown(!getSelectToUpDown());
+    return select(x,y);
+}
+
+
 void SimpleGraphics::draw(QPainter * painter)
 {
+    QPen pen(Qt::black);
+    QBrush background (QColor::fromRgb(91,155,213), Qt::SolidPattern);
+    pen.setWidth(2);
+    if(getSelectToUpDown())
+        pen.setColor(Qt::red);
+    painter->setBackgroundMode(Qt::OpaqueMode);
+    painter->setBrush( background);
+    painter->setPen(pen);
     shape()->draw(painter);
 }
 
@@ -54,6 +70,31 @@ int SimpleGraphics::getOnMoveY()
 }
 
 bool SimpleGraphics::isComposite()
+{
+    return false;
+}
+
+void SimpleGraphics::setSelectToUpDown(bool s)
+{
+    selectTUD = s;
+}
+
+bool SimpleGraphics::getSelectToUpDown()
+{
+    return selectTUD;
+}
+
+bool SimpleGraphics::getSimpleSelectToUpDown()
+{
+    return selectTUD;
+}
+
+bool SimpleGraphics::canUp()
+{
+    return false;
+}
+
+bool SimpleGraphics::canDown()
 {
     return false;
 }

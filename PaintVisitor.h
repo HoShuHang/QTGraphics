@@ -12,14 +12,12 @@ class PaintVisitor : public GraphicsVisitor
 {
 public:
     PaintVisitor(QPainter *p);
-    std::vector<QGraphicsItem *> getPainters();
     void visitSimpleGraphics(SimpleGraphics *sg);
     void visitCompositeGraphics (CompositeGraphics *cg);
-    void setWidget(QWidget *w);
+    void draw();
 private:
     QPainter *painter;
-    QWidget *widget;
-    std::vector<QGraphicsItem *> items;
+    std::vector<Graphics *> items;
 };
 
 #endif // PAINTVISITOR_H_INCLUDED

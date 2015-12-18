@@ -6,26 +6,19 @@ PaintVisitor::PaintVisitor(QPainter *p)
 
 void PaintVisitor::visitSimpleGraphics(SimpleGraphics *s)
 {
-//    items.push_back(s->createPainter(widget));
-    QPen bPen(Qt::blue);
-    painter->setPen(bPen);
-    s->draw(painter);
+    items.push_back(s);
 }
 
 void PaintVisitor::visitCompositeGraphics(CompositeGraphics *cg)
 {
-//    items.push_back(cg->createPainter(widget));
-    QPen gPen(Qt::green);
-    painter->setPen(gPen);
-    cg->draw(painter);
+    items.push_back(cg);
 }
 
-std::vector<QGraphicsItem *> PaintVisitor::getPainters()
+void PaintVisitor::draw()
 {
-    return items;
-}
-
-void PaintVisitor::setWidget(QWidget *w)
-{
-    widget = w;
+    for(int i = items.size() - 1; i >=0; i--)
+    {
+        Graphics *g = items.at(i);
+        g->draw(painter);
+    }
 }
