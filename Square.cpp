@@ -2,7 +2,6 @@
 #include "Rectangle.h"
 #include <sstream>
 #include <string>
-#include "RectanglePainter.h"
 
 Square::Square(int ll_x, int ll_y, int length)
     :x(ll_x),y(ll_y),l(length)

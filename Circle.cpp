@@ -2,7 +2,7 @@
 #include "Rectangle.h"
 #include <sstream>
 #include <cmath>
-#include "CirclePainter.h"
+
 const int PI=3;
 
 Circle::Circle(int center_x, int center_y, int radius)
