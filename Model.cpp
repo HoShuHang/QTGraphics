@@ -4,6 +4,11 @@ Model::Model()
 {
     cm = new CommandManager();
     graphics = new vector<Graphics *>;
+    moveAtIndex=0;
+    iniX=0;
+    iniY=0;
+    moveX=0;
+    moveY=0;
 }
 
 void Model::createCircle()
@@ -87,6 +92,85 @@ void Model::decomposeGraphic()
     vector<int> indexs = getSelects();
     Graphics *g = graphics->at(indexs.back());
     cm->decomposeCommand(graphics, g);
+}
+
+void Model::MousePressEvent(int x, int y)
+{
+    iniX = x;
+    iniY = y;
+    moveAtIndex = select(iniX, iniY);
+    moveX = 0;
+    moveY=0;
+}
+
+void Model::MouseMoveEvent(int x, int y)
+{
+    moveX = (x - iniX);
+    moveY = (y - iniY);
+    if(moveAtIndex != -1)
+    {
+        Graphics *g = getGraphics()->at(moveAtIndex);
+        g->onMove(moveX, moveY);
+    }
+}
+
+void Model::MouseReleseEvent(int x, int y)
+{
+    if(moveAtIndex != -1)
+    {
+        Graphics *g = getGraphics()->at(moveAtIndex);
+        if(abs(moveX) > 1 || abs(moveY) > 1)
+        {
+            g->onMove(0, 0);
+            g->setSelected(true);
+            moveGraphic(g, moveX, moveY);
+        }
+        else
+        {
+            g->setSelected(!g->isSelected());
+            if(g->selectToUpDown(x, y))
+                selectToUpDown = g;
+        }
+    }
+    else
+    {
+        if(moveX >= 0 && moveY >= 0)
+            select(iniX, iniY, iniX + moveX, iniY + moveY);
+        else if(moveX >= 0 && moveY < 0)
+            select(iniX, iniY + moveY, iniX + moveX, iniY);
+        else if(moveX < 0 && moveY < 0)
+            select(iniX + moveX, iniY + moveY, iniX, iniY);
+        else if(moveX < 0 && moveY >= 0)
+            select(iniX + moveX, iniY, iniX, iniY + moveY);
+    }
+}
+
+void Model::up()
+{
+    for(int i = 0; i < selectToUpDown->getGraphics()->size(); i++)
+    {
+        Graphics *gr =  selectToUpDown->getGraphics()->at(i);
+        if(gr->getSelectToUpDown())
+        {
+            cout << "model old index : " << i << endl;
+            break;
+        }
+    }
+    cm->upCommand(selectToUpDown);
+    for(int i = 0; i < selectToUpDown->getGraphics()->size(); i++)
+    {
+        Graphics *gr =  selectToUpDown->getGraphics()->at(i);
+        if(gr->getSelectToUpDown())
+        {
+            cout << "model new index : " << i << endl;
+            break;
+        }
+    }
+}
+
+void Model::down()
+{
+
 }
 
 bool Model::isComposeEnable()

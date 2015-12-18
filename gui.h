@@ -57,7 +57,7 @@ public:
 private:
     QAction *aboutDeveloper, *loadFile, *saveFile;
     QAction *createRectangle, *createSquare, *createCircle;
-    QAction *undo, *redo, *deleteGraphics, *compose, *decompose;
+    QAction *undo, *redo, *deleteGraphics, *compose, *decompose, *up, *down;
     QMenu *about, *file, *createShape;
     Graphics *selectRectangle;
 //    PaintVisitor pv;
@@ -80,6 +80,8 @@ private slots:
     void Redo();
     void Compose();
     void Decompose();
+    void Up();
+    void Down();
 };
 
 #endif // GUI_H

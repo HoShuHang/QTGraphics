@@ -58,6 +58,8 @@ void gui::SetActionConnection()
     connect(deleteGraphics, SIGNAL(triggered()), this, SLOT(DeleteGraphics()));
     connect(compose, SIGNAL(triggered()), this, SLOT(Compose()));
     connect(decompose, SIGNAL(triggered()), this, SLOT(Decompose()));
+    connect(up, SIGNAL(triggered()), this, SLOT(Up()));
+    connect(down, SIGNAL(triggered()), this, SLOT(Down()));
 }
 
 void gui::CreateActions()
@@ -72,6 +74,8 @@ void gui::CreateActions()
     QPixmap deletePic("pic/delete.png");
     QPixmap composePic("pic/compose.png");
     QPixmap decomposePic("pic/decompose.png");
+    QPixmap upPic("pic/up.png");
+    QPixmap downPic("pic/down.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
     saveFile->setEnabled(false);
@@ -89,6 +93,8 @@ void gui::CreateActions()
     compose->setEnabled(false);
     decompose = new QAction(decomposePic, "decompose", widget);
     decompose->setEnabled(false);
+    up = new QAction(upPic, "up", widget);
+    down = new QAction(downPic, "down", widget);
 }
 
 void gui::CreateMenus()
@@ -118,6 +124,8 @@ void gui::CreateTools()
     fileToolBar->addAction(deleteGraphics);
     fileToolBar->addAction(compose);
     fileToolBar->addAction(decompose);
+    fileToolBar->addAction(up);
+    fileToolBar->addAction(down);
 }
 
 void gui::Display()
@@ -232,26 +240,19 @@ void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
     iniX = event->scenePos().x();
     iniY = event->scenePos().y();
 
+    model->MousePressEvent(iniX, iniY);
     moveAtIndex = model->select(iniX, iniY);
-    moveX = 0;
-    moveY=0;
     Update();
 }
 
 void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
 {
-    moveX = (event->scenePos().x() - iniX);
-    moveY = (event->scenePos().y() - iniY);
-    if(moveAtIndex != -1)
-    {
-        Graphics *g = model->getGraphics()->at(moveAtIndex);
-        g->onMove(moveX, moveY);
-    }
-    else
+    if(moveAtIndex == -1)
     {
         delete selectRectangle;
         selectRectangle = new SimpleGraphics(new Rectangle(iniX,iniY,moveX,moveY));
     }
+    model->MouseMoveEvent(event->scenePos().x(), event->scenePos().y());
     Update();
 }
 
@@ -259,31 +260,7 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
 {
     delete selectRectangle;
     selectRectangle = new SimpleGraphics(new Rectangle(0,0,0,0));
-    if(moveAtIndex != -1)
-    {
-        Graphics *g = model->getGraphics()->at(moveAtIndex);
-        if(abs(moveX) > 1 || abs(moveY) > 1)
-        {
-            g->onMove(0, 0);
-            g->setSelected(true);
-            model->moveGraphic(g, moveX, moveY);
-        }
-        else
-        {
-            g->setSelected(!g->isSelected());
-        }
-    }
-    else
-    {
-        if(moveX >= 0 && moveY >= 0)
-            model->select(iniX, iniY, iniX + moveX, iniY + moveY);
-        else if(moveX >= 0 && moveY < 0)
-            model->select(iniX, iniY + moveY, iniX + moveX, iniY);
-        else if(moveX < 0 && moveY < 0)
-            model->select(iniX + moveX, iniY + moveY, iniX, iniY);
-        else if(moveX < 0 && moveY >= 0)
-            model->select(iniX + moveX, iniY, iniX, iniY + moveY);
-    }
+    model->MouseReleseEvent(event->scenePos().x(), event->scenePos().y());
     Update();
 }
 
@@ -302,5 +279,17 @@ void gui::Compose()
 void gui::Decompose()
 {
     model->decomposeGraphic();
+    Update();
+}
+
+void gui::Up()
+{
+    model->up();
+    Update();
+}
+
+void gui::Down()
+{
+    model->down();
     Update();
 }
