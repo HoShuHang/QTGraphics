@@ -3,6 +3,9 @@
 
 #include "Command.h"
 #include "Graphics.h"
+#include <vector>
+#include <iostream>
+using namespace std;
 
 class UpCommand : public Command
 {
@@ -12,6 +15,9 @@ public:
     void UnExcute();
 private:
     Graphics *graphic;
+    vector<Graphics *> *g_obj;
+    Graphics *select;
+    int index;
 };
 
 #endif // UPCOMMAND_H_INCLUDED
