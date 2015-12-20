@@ -64,23 +64,24 @@ QGraphicsItem* CompositeGraphics::createPainter()
 
 bool CompositeGraphics::select(int x, int y)
 {
-    cout << "composite select" << endl;
     bool s = getBoundingBox().select(x,y);
     return s;
 }
 
 bool CompositeGraphics::selectToUpDown(int x, int y)
 {
-    std::vector<Graphics *>::iterator i;
-    for (i=g_obj->begin(); i != g_obj->end(); ++i)
+    for(int i = 0; i < g_obj->size(); i++)
     {
-        (*i)->setSelectToUpDown(false);
-    }
-    for (i=g_obj->begin(); i != g_obj->end(); ++i)
-    {
-        if((*i)->select(x,y))
+        Graphics *g = g_obj->at(i);
+        if(g->select(x,y))
         {
-            (*i)->setSelectToUpDown(!(*i)->getSelectToUpDown());
+            for(int j = 0; j < g_obj->size(); j++)
+            {
+                Graphics *gr = g_obj->at(j);
+                if(i != j)
+                    gr->setSelectToUpDown(false);
+            }
+            g->setSelectToUpDown(!g->getSelectToUpDown());
             return true;
         }
     }
@@ -91,7 +92,7 @@ void CompositeGraphics::draw(QPainter * painter)
 {
     QPen pen(Qt::green);
     pen.setWidth(2);
-    if(getSelectToUpDown())
+    if(lightRed())
         pen.setColor(Qt::red);
     QBrush background (Qt::transparent, Qt::SolidPattern);
     painter->setBrush(background);
@@ -147,6 +148,22 @@ void CompositeGraphics::setSelectToUpDown(bool s)
 }
 
 bool CompositeGraphics::getSelectToUpDown()
+{
+    if(selectTUD)
+        return true;
+    else
+    {
+        for(int i = g_obj->size() - 1; i >= 0; i--)
+        {
+            Graphics *g = g_obj->at(i);
+            if(g->getSelectToUpDown())
+                return true;
+        }
+    }
+    return false;
+}
+
+bool CompositeGraphics::lightRed()
 {
     if(selectTUD)
         return true;

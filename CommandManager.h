@@ -11,6 +11,7 @@
 #include "ComposeCommand.h"
 #include "DecomposeCommand.h"
 #include "UpCommand.h"
+#include "DownCommand.h"
 
 using namespace std;
 

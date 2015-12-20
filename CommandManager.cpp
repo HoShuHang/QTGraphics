@@ -57,10 +57,8 @@ void CommandManager::decomposeCommand(vector<Graphics *> *g_vector, Graphics *g)
 
 void CommandManager::upCommand(Graphics *g)
 {
-    cout << "can up" << g->canUp();
     if(g->canUp())
     {
-        cout << "can up" << endl;
         Command *c = new UpCommand(g);
         excute(c);
     }
@@ -70,8 +68,8 @@ void CommandManager::downCommand(Graphics *g)
 {
     if(g->canDown())
     {
-//        Command *c = new UpCommand(g);
-//        execute(c);
+        Command *c = new DownCommand(g);
+        excute(c);
     }
 }
 

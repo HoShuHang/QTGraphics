@@ -26,6 +26,7 @@ public:
     bool getSimpleSelectToUpDown();
     bool canUp();
     bool canDown();
+    bool lightRed();
 private:
     std::vector<Graphics *> *g_obj;
     int moveX, moveY;

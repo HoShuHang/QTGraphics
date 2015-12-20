@@ -38,6 +38,8 @@ public:
     bool isGraphicsSelect();
     bool isComposeEnable();
     bool isDecomposeEnable();
+    bool isUpEnable();
+    bool isDownEnable();
     void buildGraphicFromFile(const char *path);
     string getDescription();
     void MousePressEvent(int x, int y);

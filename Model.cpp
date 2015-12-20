@@ -147,30 +147,12 @@ void Model::MouseReleseEvent(int x, int y)
 
 void Model::up()
 {
-    for(int i = 0; i < selectToUpDown->getGraphics()->size(); i++)
-    {
-        Graphics *gr =  selectToUpDown->getGraphics()->at(i);
-        if(gr->getSelectToUpDown())
-        {
-            cout << "model old index : " << i << endl;
-            break;
-        }
-    }
     cm->upCommand(selectToUpDown);
-    for(int i = 0; i < selectToUpDown->getGraphics()->size(); i++)
-    {
-        Graphics *gr =  selectToUpDown->getGraphics()->at(i);
-        if(gr->getSelectToUpDown())
-        {
-            cout << "model new index : " << i << endl;
-            break;
-        }
-    }
 }
 
 void Model::down()
 {
-
+    cm->downCommand(selectToUpDown);
 }
 
 bool Model::isComposeEnable()
@@ -182,6 +164,28 @@ bool Model::isDecomposeEnable()
 {
     vector<int> indexs = getSelects();
     return indexs.size() == 1 && graphics->at(indexs.back())->isComposite();
+}
+
+bool Model::isUpEnable()
+{
+    std::vector<Graphics *>::iterator i;
+    for(i = graphics->begin(); i!=graphics->end(); i++)
+    {
+        if((*i)->getSelectToUpDown() && (*i)->canUp())
+            return true;
+    }
+    return false;
+}
+
+bool Model::isDownEnable()
+{
+    std::vector<Graphics *>::iterator i;
+    for(i = graphics->begin(); i!=graphics->end(); i++)
+    {
+        if((*i)->getSelectToUpDown() && (*i)->canDown())
+            return true;
+    }
+    return false;
 }
 
 vector<int> Model::getSelects()
@@ -206,6 +210,7 @@ void Model::buildGraphicFromFile(const char *path)
     {
         graphics->push_back(g->at(i));
     }
+    cm->cleanUndoRedo();
 //    cm->createCommand(graphics, g);
 }
 

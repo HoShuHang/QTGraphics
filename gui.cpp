@@ -94,7 +94,9 @@ void gui::CreateActions()
     decompose = new QAction(decomposePic, "decompose", widget);
     decompose->setEnabled(false);
     up = new QAction(upPic, "up", widget);
+    up->setEnabled(false);
     down = new QAction(downPic, "down", widget);
+    down->setEnabled(false);
 }
 
 void gui::CreateMenus()
@@ -233,6 +235,8 @@ void gui::UpdateButtonEnable()
     compose->setEnabled(model->isComposeEnable());
     decompose->setEnabled(model->isDecomposeEnable());
     saveFile->setEnabled(!model->getGraphics()->empty());
+    up->setEnabled(model->isUpEnable());
+    down->setEnabled(model->isDownEnable());
 }
 
 void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
