@@ -71,6 +71,7 @@ private:
     int moveAtIndex;
 private slots:
     void LoadFileDialog();
+    void LoadFile();
     void MessageDialog();
     void LoadFileAlertDialog();
     void SaveFileDialog();

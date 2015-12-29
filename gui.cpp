@@ -148,31 +148,39 @@ void gui::MessageDialog()
 
 void gui::LoadFileAlertDialog()
 {
-    QMessageBox msgbox;
-    std::string message("There are some file doesn't save, are you sure you want to load file?\n");
-    QString qstr = QString::fromStdString(message);
-    msgbox.setText(qstr);
-    msgbox.exec();
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Alert", "There are some file doesn't save, are you sure you want to load file?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes)
+    {
+        LoadFile();
+    }
 }
 
 void gui::LoadFileDialog()
 {
     if(model->isLoadFileEnable())
     {
-        QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
+        LoadFile();
+    }
+    else
+    {
+        LoadFileAlertDialog();
+    }
+}
+
+void gui::LoadFile()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
                        "./",
                        tr("txt (*.txt)"));
+        cout << file.toStdString() << endl;
         if(file != "")
         {
             QByteArray ba = file.toLatin1();
             const char *c_str = ba.data();
             model->buildGraphicFromFile(c_str);
         }
-    }
-    else
-    {
-        LoadFileAlertDialog();
-    }
 }
 
 void gui::UpdateScene()
