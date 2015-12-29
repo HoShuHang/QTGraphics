@@ -148,14 +148,21 @@ void gui::MessageDialog()
 
 void gui::LoadFileDialog()
 {
-    QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
-                   "./",
-                   tr("txt (*.txt)"));
-    if(file != "")
+    if(model->isLoadFileEnable())
     {
-        QByteArray ba = file.toLatin1();
-        const char *c_str = ba.data();
-        model->buildGraphicFromFile(c_str);
+        QString file = QFileDialog::getOpenFileName(this, tr("Load File"),
+                       "./",
+                       tr("txt (*.txt)"));
+        if(file != "")
+        {
+            QByteArray ba = file.toLatin1();
+            const char *c_str = ba.data();
+            model->buildGraphicFromFile(c_str);
+        }
+    }
+    else
+    {
+        MessageDialog();
     }
 }
 

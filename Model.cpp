@@ -9,27 +9,28 @@ Model::Model()
     iniY=0;
     moveX=0;
     moveY=0;
+    loadFileEnable = true;
 }
 
 void Model::createCircle()
 {
     Graphics *g = new SimpleGraphics(new Circle(50, 0, 50));
     cm->createCommand(graphics, g);
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::createRectangle()
 {
     Graphics *g = new SimpleGraphics(new Rectangle(0, 0, 100, 50));
     cm->createCommand(graphics, g);
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::createSquare()
 {
     Graphics *g = new SimpleGraphics(new Square(50, 0, 50));
     cm->createCommand(graphics, g);
-    Notify();
+    NotifyDataChange();
 }
 
 vector<Graphics *> *Model::getGraphics()
@@ -40,13 +41,13 @@ vector<Graphics *> *Model::getGraphics()
 void Model::undo()
 {
     cm->Undo();
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::redo()
 {
     cm->Redo();
-    Notify();
+    NotifyDataChange();
 }
 
 bool Model::isUndoEnable()
@@ -63,7 +64,7 @@ void Model::deleteGraphics()
 {
     vector<int> indexs = getSelects();
     cm->deleteCommand(graphics, indexs);
-    Notify();
+    NotifyDataChange();
 }
 
 int Model::select(int x, int y)
@@ -91,7 +92,7 @@ void Model::composeGraphic()
 {
     vector<int> indexs = getSelects();
     cm->composeCommand(graphics, indexs);
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::decomposeGraphic()
@@ -99,7 +100,7 @@ void Model::decomposeGraphic()
     vector<int> indexs = getSelects();
     Graphics *g = graphics->at(indexs.back());
     cm->decomposeCommand(graphics, g);
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::MousePressEvent(int x, int y)
@@ -109,7 +110,7 @@ void Model::MousePressEvent(int x, int y)
     moveAtIndex = select(iniX, iniY);
     moveX = 0;
     moveY=0;
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::MouseMoveEvent(int x, int y)
@@ -121,7 +122,7 @@ void Model::MouseMoveEvent(int x, int y)
         Graphics *g = getGraphics()->at(moveAtIndex);
         g->onMove(moveX, moveY);
     }
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::MouseReleseEvent(int x, int y)
@@ -153,19 +154,19 @@ void Model::MouseReleseEvent(int x, int y)
         else if(moveX < 0 && moveY >= 0)
             select(iniX + moveX, iniY, iniX, iniY + moveY);
     }
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::up()
 {
     cm->upCommand(selectToUpDown);
-    Notify();
+    NotifyDataChange();
 }
 
 void Model::down()
 {
     cm->downCommand(selectToUpDown);
-    Notify();
+    NotifyDataChange();
 }
 
 bool Model::isComposeEnable()
@@ -201,6 +202,17 @@ bool Model::isDownEnable()
     return false;
 }
 
+bool Model::isLoadFileEnable()
+{
+    return loadFileEnable;
+}
+
+void Model::NotifyDataChange()
+{
+    loadFileEnable = false;
+    Notify();
+}
+
 vector<int> Model::getSelects()
 {
     vector<int> indexs;
@@ -225,7 +237,8 @@ void Model::buildGraphicFromFile(const char *path)
     }
     cm->cleanUndoRedo();
 //    cm->createCommand(graphics, g);
-    Notify();
+    NotifyDataChange();
+    loadFileEnable = true;
 }
 
 string Model::getDescription()
@@ -274,5 +287,6 @@ void Model::saveFile(const char *c_str)
         myfile << getDescription();
         myfile.close();
     }
-    Notify();
+    NotifyDataChange();
+    loadFileEnable = true;
 }

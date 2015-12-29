@@ -42,6 +42,8 @@ public:
     bool isDecomposeEnable();
     bool isUpEnable();
     bool isDownEnable();
+    bool isLoadFileEnable();
+    void NotifyDataChange();
     void buildGraphicFromFile(const char *path);
     string getDescription();
     void MousePressEvent(int x, int y);
@@ -55,6 +57,7 @@ private:
     int moveAtIndex;
     int iniX, iniY, moveX, moveY;
     Graphics *selectToUpDown;
+    bool loadFileEnable;
 };
 
 #endif // MODEL_H_INCLUDED
