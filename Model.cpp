@@ -80,7 +80,7 @@ int Model::select(int x, int y)
 bool Model::isGraphicsSelect()
 {
     vector<int> indexs = getSelects();
-    return !indexs.empty();
+    return indexs.size() == 1;
 }
 
 void Model::moveGraphic(Graphics *g, int mX, int mY)

@@ -72,6 +72,7 @@ private:
 private slots:
     void LoadFileDialog();
     void MessageDialog();
+    void LoadFileAlertDialog();
     void SaveFileDialog();
     void CreateSquare();
     void CreateRectangle();

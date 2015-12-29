@@ -146,6 +146,15 @@ void gui::MessageDialog()
     msgbox.exec();
 }
 
+void gui::LoadFileAlertDialog()
+{
+    QMessageBox msgbox;
+    std::string message("There are some file doesn't save, are you sure you want to load file?\n");
+    QString qstr = QString::fromStdString(message);
+    msgbox.setText(qstr);
+    msgbox.exec();
+}
+
 void gui::LoadFileDialog()
 {
     if(model->isLoadFileEnable())
@@ -162,7 +171,7 @@ void gui::LoadFileDialog()
     }
     else
     {
-        MessageDialog();
+        LoadFileAlertDialog();
     }
 }
 
