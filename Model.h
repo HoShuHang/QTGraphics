@@ -12,10 +12,12 @@
 #include "CommandManager.h"
 #include "GraphicsFactory.h"
 #include "DescriptionVisitor.h"
+#include "Subject.h"
+#include <fstream>
 
 using namespace std;
 
-class Model
+class Model : public Subject
 {
 public:
     Model();
@@ -45,6 +47,7 @@ public:
     void MousePressEvent(int x, int y);
     void MouseMoveEvent(int x, int y);
     void MouseReleseEvent(int x, int y);
+    void saveFile(const char *c_str);
 private:
     vector<Graphics *> *graphics;
     CommandManager *cm;

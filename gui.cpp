@@ -1,6 +1,5 @@
 #include "gui.moc"
 #include <QDebug>
-#include <fstream>
 gui::gui()
 {
 //    ctor
@@ -13,6 +12,7 @@ gui::gui()
     setWindowTitle(title);
     setMinimumSize(800, 600);
     model = new Model();
+    model->Attach(this);
     iniX = 0;
     iniY = 0;
     moveX = 0;
@@ -78,7 +78,6 @@ void gui::CreateActions()
     QPixmap downPic("pic/down.png");
     loadFile = new QAction(loadPic, "loadFile", widget);
     saveFile = new QAction(savePic, "saveFile", widget);
-    saveFile->setEnabled(false);
     aboutDeveloper = new QAction("aboutDeveloper", widget);
     createCircle = new QAction(circle, "createCircle", widget);
     createRectangle = new QAction(rectangle, "createRectangle", widget);
@@ -157,7 +156,6 @@ void gui::LoadFileDialog()
         QByteArray ba = file.toLatin1();
         const char *c_str = ba.data();
         model->buildGraphicFromFile(c_str);
-        Update();
     }
 }
 
@@ -181,44 +179,32 @@ void gui::SaveFileDialog()
                    tr("txt (*.txt)"));
     QByteArray ba = file.toLatin1();
     const char *c_str = ba.data();
-
-    ofstream myfile (c_str);
-    if (myfile.is_open())
-    {
-        myfile << model->getDescription();
-        myfile.close();
-    }
-    Update();
+    model->saveFile(c_str);
 }
 
 void gui::CreateCircle()
 {
     model->createCircle();
-    Update();
 }
 
 void gui::CreateRectangle()
 {
     model->createRectangle();
-    Update();
 }
 
 void gui::CreateSquare()
 {
     model->createSquare();
-    Update();
 }
 
 void gui::Undo()
 {
     model->undo();
-    Update();
 }
 
 void gui::Redo()
 {
     model->redo();
-    Update();
 }
 
 void gui::Update()
@@ -234,7 +220,6 @@ void gui::UpdateButtonEnable()
     deleteGraphics->setEnabled(model->isGraphicsSelect());
     compose->setEnabled(model->isComposeEnable());
     decompose->setEnabled(model->isDecomposeEnable());
-    saveFile->setEnabled(!model->getGraphics()->empty());
     up->setEnabled(model->isUpEnable());
     down->setEnabled(model->isDownEnable());
 }
@@ -246,7 +231,6 @@ void gui::mousePressEvent (QGraphicsSceneMouseEvent * event )
 
     model->MousePressEvent(iniX, iniY);
     moveAtIndex = model->select(iniX, iniY);
-    Update();
 }
 
 void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
@@ -257,7 +241,6 @@ void gui::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
         selectRectangle = new SimpleGraphics(new Rectangle(iniX,iniY,moveX,moveY));
     }
     model->MouseMoveEvent(event->scenePos().x(), event->scenePos().y());
-    Update();
 }
 
 void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
@@ -265,35 +248,29 @@ void gui::mouseReleaseEvent (QGraphicsSceneMouseEvent * event )
     delete selectRectangle;
     selectRectangle = new SimpleGraphics(new Rectangle(0,0,0,0));
     model->MouseReleseEvent(event->scenePos().x(), event->scenePos().y());
-    Update();
 }
 
 void gui::DeleteGraphics()
 {
     model->deleteGraphics();
-    Update();
 }
 
 void gui::Compose()
 {
     model->composeGraphic();
-    Update();
 }
 
 void gui::Decompose()
 {
     model->decomposeGraphic();
-    Update();
 }
 
 void gui::Up()
 {
     model->up();
-    Update();
 }
 
 void gui::Down()
 {
     model->down();
-    Update();
 }

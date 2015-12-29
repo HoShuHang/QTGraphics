@@ -30,11 +30,12 @@
 #include <QGraphicsSceneDragDropEvent>
 #include "GraphicsScene.h"
 #include <cmath>
+#include "Observer.h"
 
 using namespace std;
 
 
-class gui: public QMainWindow
+class gui: public QMainWindow, public Observer
 {
     Q_OBJECT
 public:
