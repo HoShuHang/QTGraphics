@@ -217,8 +217,8 @@ vector<int> Model::getSelects()
 
 void Model::buildGraphicFromFile(const char *path)
 {
-    GraphicsFactory gf;
-    vector<Graphics *> *g = gf.buildGraphicsFromFile(path);
+    GraphicsFactory *gf = new GraphicsFactory();
+    vector<Graphics *> *g = gf->buildGraphicsFromFile(path);
     for(int i = 0; i < g->size(); i++)
     {
         graphics->push_back(g->at(i));

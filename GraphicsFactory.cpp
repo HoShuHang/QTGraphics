@@ -16,22 +16,26 @@ GraphicsFactory::GraphicsFactory()
     graphics = new vector<Graphics *>;
 }
 
-void GraphicsFactory::compose () {
+void GraphicsFactory::compose ()
+{
     vector<Graphics *> temp;
     int level=(pda.top()).first;
     for (; (pda.top()).first == level; pda.pop())
         temp.push_back((pda.top()).second);
-    if ((pda.top()).first == level-1) {
+    if ((pda.top()).first == level-1)
+    {
         vector<Graphics *>::reverse_iterator it = temp.rbegin();
-        for (; it != temp.rend(); ++it) {
+        for (; it != temp.rend(); ++it)
+        {
             (pda.top()).second->add(*it);
         }
     }
 }
 
-string GraphicsFactory::fileContentsAsString(const char * fileName) {
-	ifstream ifs(fileName);
-	if (!ifs)
+string GraphicsFactory::fileContentsAsString(const char * fileName)
+{
+    ifstream ifs(fileName);
+    if (!ifs)
         throw "Problem opening file";
 
     string contents("");
@@ -42,13 +46,14 @@ string GraphicsFactory::fileContentsAsString(const char * fileName) {
         contents.append(string("\n"));
     }
 
-	if (ifs.is_open())
-		ifs.close();
+    if (ifs.is_open())
+        ifs.close();
 
     return contents;
 }
 
-Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, int & level) {
+Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, int & level)
+{
     std::size_t pos = contents.find_first_not_of(space);
     level = pos/2;
     Graphics * gr =0;
@@ -57,10 +62,11 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
     if (found==pos)
         gr = new CompositeGraphics;
     found = contents.find("C(", pos);
-    if (found==pos) {
+    if (found==pos)
+    {
         std::string s(contents.substr(pos+2));
         std::stringstream ifs(s);
-    GraphicsFactory();
+        GraphicsFactory();
         int cx, cy, r;
         char c;
         //     cx    ,    cy    ,    r    )
@@ -68,7 +74,8 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
         gr = new SimpleGraphics(new Circle(cx,cy,r));
     }
     found = contents.find("S(", pos);
-    if (found==pos) {
+    if (found==pos)
+    {
         std::string s(contents.substr(pos+2));
         std::stringstream ifs(s);
         int llx, lly, length;
@@ -79,7 +86,8 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
     }
 
     found = contents.find("R(", pos);
-    if (found==pos) {
+    if (found==pos)
+    {
         std::string s(contents.substr(pos+2));
         std::stringstream ifs(s);
         int llx, lly, length, width ;
@@ -98,37 +106,49 @@ Graphics * GraphicsFactory::extractGraphicsFromOneLine(std::string & contents, i
         throw std::string("undefined graphics");
 }
 
-vector<Graphics *> *GraphicsFactory::buildGraphicsFromFile(const char * fileName) {
+vector<Graphics *> *GraphicsFactory::buildGraphicsFromFile(const char * fileName)
+{
     Graphics * gr = 0;
     int indent_previous, indent_actual;
     std::string contents = fileContentsAsString(fileName);
-    Graphics * top = extractGraphicsFromOneLine(contents, indent_actual);
-    if (indent_actual != 0)
-        throw std::string("Graphics format error");
-    else {
-        pda.push(std::make_pair(indent_actual,top));
+    if(contents.empty())
+    {
+
     }
-    while (!contents.empty()) {
-        indent_previous = indent_actual;
-        Graphics * t = extractGraphicsFromOneLine(contents, indent_actual);
-        if (indent_actual < indent_previous)
-            compose();
-        pda.push(make_pair(indent_actual,t));
-    }
-    if (contents.empty()) {
-        while (pda.size() > 1)
+    else
+    {
+        Graphics * top = extractGraphicsFromOneLine(contents, indent_actual);
+        if (indent_actual != 0)
+            throw std::string("Graphics format error");
+        else
         {
-            if(pda.top().first == 0)
-            {
-                graphics->push_back(pda.top().second);
-                pda.pop();
-            }
-            else
-            {
-                compose();
-            }
+            pda.push(std::make_pair(indent_actual,top));
         }
-        graphics->push_back(pda.top().second);
+        while (!contents.empty())
+        {
+            indent_previous = indent_actual;
+            Graphics * t = extractGraphicsFromOneLine(contents, indent_actual);
+            if (indent_actual < indent_previous)
+                compose();
+            pda.push(make_pair(indent_actual,t));
+        }
+        if (contents.empty())
+        {
+            while (pda.size() > 1)
+            {
+                if(pda.top().first == 0)
+                {
+                    graphics->push_back(pda.top().second);
+                    pda.pop();
+                }
+                else
+                {
+                    compose();
+                }
+            }
+            graphics->push_back(pda.top().second);
+        }
     }
+
     return graphics;
 }
