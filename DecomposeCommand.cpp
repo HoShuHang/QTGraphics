@@ -9,7 +9,7 @@ DecomposeCommand::DecomposeCommand(vector<Graphics *> *g, Graphics *comp)
 void DecomposeCommand::Excute()
 {
     graphics->erase((remove(graphics->begin(), graphics->end(), compositeGraphic)), graphics->end());
-    for(int i = 0; i < compositeGraphic->getGraphics()->size(); i++)
+    for(int i = compositeGraphic->getGraphics()->size()-1; i >=0; i--)
     {
         Graphics *g = compositeGraphic->getGraphics()->at(i);
         graphics->push_back(g);
@@ -18,7 +18,7 @@ void DecomposeCommand::Excute()
 
 void DecomposeCommand::UnExcute()
 {
-    for(int i = 0; i < compositeGraphic->getGraphics()->size(); i++)
+    for(int i = compositeGraphic->getGraphics()->size()-1; i >=0 ; i--)
     {
         Graphics *g = compositeGraphic->getGraphics()->at(i);
         graphics->erase((remove(graphics->begin(), graphics->end(), g)), graphics->end());

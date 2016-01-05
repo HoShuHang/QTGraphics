@@ -7,7 +7,7 @@ ComposeCommand::ComposeCommand(vector<Graphics *> *g, vector<int> i)
     indexs = i;
     g_obj = new vector<Graphics *>;
     compositeGraphic = new CompositeGraphics();
-    for(int i = 0; i < indexs.size(); i ++)
+    for(int i = indexs.size()-1; i >=0; i --)
     {
         Graphics *g = graphics->at(i);
         g_obj->push_back(g);
@@ -28,9 +28,9 @@ void ComposeCommand::Excute()
 void ComposeCommand::UnExcute()
 {
     graphics->erase((remove(graphics->begin(), graphics->end(), compositeGraphic)), graphics->end());
-    for(int i = 0; i < indexs.size(); i ++)
+    for(int i = indexs.size()-1; i>=0;i--)
     {
-        Graphics *graphic = g_obj->at(i);
+        Graphics *graphic = g_obj->at(indexs.size()-1-i);
         if(graphics->size() == 0)
             graphics->push_back(graphic);
         else
